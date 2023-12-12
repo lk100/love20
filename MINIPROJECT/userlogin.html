@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playpen+Sans:wght@400;600;700&display=swap');
+
+        * {
+            font-family: "Playpen_Sans variant0", Tofu;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* background-color: rgb(143, 194, 194); */
+            column-gap: 30px;
+            background-image: url("loginpagebg..jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .form {
+            background: #fff;
+            border-radius: 40px;
+            max-width: 430px;
+            width: 100%;
+            padding: 30px;
+            position: absolute;
+        }
+
+        .form.signup {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .forms.show-signup .form.signup {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .forms.show-signup .form.login {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        header {
+            font-size: 28px;
+            font-weight: 600;
+            color: #232836;
+            text-align: center;
+        }
+
+        .form {
+            margin-top: 30px;
+            /* min-height:100vh; */
+        }
+
+        .form .field {
+            height: 50px;
+            width: 100%;
+            margin-top: 20px;
+            position: relative;
+            border-radius: 30px;
+
+        }
+
+        .field input,
+        .field button {
+            height: 100%;
+            width: 100%;
+            border: none;
+            font-size: 16px;
+            font-weight: 400;
+            border-radius: 30px;
+
+        }
+
+        .field button {
+            background-color: #0171d3;
+        }
+
+        .field button:hover {
+            background-color: blue;
+            transition: all 0.25s ease;
+            cursor: pointer;
+            color: white;
+        }
+
+        .field input {
+            outline: none;
+            border: 1px solid #cacaca;
+            padding: 0 15px;
+        }
+
+        .field input:focus {
+            border-bottom-width: 2px;
+        }
+
+        .form-link {
+            text-align: center;
+            margin-top: 13px;
+
+        }
+
+        .form-link span,
+        .form-link a {
+            font-size: 14px;
+            font-weight: 400;
+            color: #232836;
+        }
+
+        .form a {
+            text-decoration: none;
+            color: #0171d3;
+        }
+
+        .form-content a:hover {
+            text-decoration: underline;
+        }
+
+        .field .eye-icon ,.field .gmail {
+            font-size: 18px;
+            color: grey;
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            padding: 5px;
+
+        }
+        .field .gmail {
+            font-size: 18px;
+            color: grey;
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            
+            padding: 5px;
+
+        }
+
+
+        .line {
+            height: 1px;
+            position: relative;
+            width: 100%;
+            background-color: #d4d4d4;
+            margin: 36px 0;
+        }
+
+        .line::before {
+            content: 'Or';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            color: #232836;
+            padding: 0 15px;
+        }
+
+        .media-options a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+        }
+
+        a.facebook {
+            color: #fff;
+            background-color: #0171d3;
+            border: none;
+        }
+        a.facebook:hover{
+            background-color: blue;
+            transition: all 0.3s ease;
+        }
+
+        a.facebook .facebook-icon {
+            height: 28px;
+            width: 28px;
+            color: #0171d3;
+            font-size: 20px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #fff;
+        }
+
+        .facebook-icon,
+        .google-img {
+            position: absolute;
+            top: 50%;
+            left: 15px;
+            transform: translateY(-50%);
+
+        }
+
+        a .google-img {
+            height: 20px;
+            width: 20px;
+            object-fit: cover;
+
+        }
+
+        .google {
+            border: 1px solid grey;
+        }
+        .google:hover{
+            background: linear-gradient(rgb(40, 40, 132),orange,green,rgb(135, 135, 20));
+            transition: all 0.2s ease;
+        }
+
+        .google span {
+            font-weight: 500;
+            color: #232836;
+            opacity: 0.6;
+        }
+
+        @media screen and (max-width: 400px) {
+            .form {
+                padding: 15px 10px;
+
+            }
+        }
+    </style>
+
+
+
+</head>
+
+<body>
+    <section class="container forms">
+        <div class="form login">
+            <div class="form-content">
+                <header>Login</header>
+                <form action="#">
+                    <div class="field input-field">
+                        <input type="email" class="input" placeholder="E-Mail">
+                        <i class='bx bxl-gmail gmail'></i>
+                    </div>
+                    <div class="field input-field">
+                        <input type="password" class="password" placeholder="Password">
+                        <i class='bx bx-show eye-icon'></i>
+
+                    </div>
+                    <div class="form-link">
+                        <a href="#" class="forgot-pass">Forget Password ?</a>
+                    </div>
+                    <div class="field button-field">
+                        <button>Login</button>
+                    </div>
+
+                </form>
+                <div class="form-link">
+                    <span>Already have an account?<a href="#" class="link signup-link">SignUp</a></span>
+                </div>
+            </div>
+            <div class="line"></div>
+            <div class="media-options">
+                <a href="#" class="field facebook"><i class='bx bxl-facebook facebook-icon'></i>
+                    <span>Login With Facebook</span>
+                </a>
+            </div>
+            <div class="media-options">
+                <a href="#" class="field google">
+                    <img src="google.png" alt="" class="google-img">
+                    <span>Login With Google</span>
+                </a>
+            </div>
+
+
+        </div>
+
+        <!--Sign Up-->
+
+        <div class="form signup">
+            <div class="form-content">
+                <header>Sign Up</header>
+                <form action="#">
+                    <div class="field input-field">
+                        <input type="email" class="input" placeholder="E-Mail">
+                        <i class='bx bxl-gmail gmail'></i>
+                    </div>
+                    <div class="field input-field">
+                        <input type="password" class="password" placeholder="Password">
+
+
+                    </div>
+                    <div class="field input-field">
+                        <input type="password" class="password" placeholder="Password">
+                        <i class='bx bx-show eye-icon'></i>
+
+                    </div>
+
+                    <div class="field button-field">
+                        <button>Sign Up</button>
+                    </div>
+
+                </form>
+                <div class="form-link">
+                    <span>Already have an account?<a href="#" class="link login-link">LogIn</a></span>
+                </div>
+            </div>
+            <div class="line"></div>
+            <div class="media-options">
+                <a href="#" class="field facebook"><i class='bx bxl-facebook facebook-icon'></i>
+                    <span>Login With Facebook</span>
+                </a>
+            </div>
+            <div class="media-options">
+                <a href="#" class="field google">
+                    <img src="google.png" alt="" class="google-img">
+                    <span>Login With Google</span>
+                </a>
+            </div>
+
+
+        </div>
+    </section>
+    <script>
+        const forms = document.querySelector(".forms"),
+            pwShowHide = document.querySelectorAll(".eye-icon"),
+            links = document.querySelectorAll(".link");
+
+        // console.log(forms, pwShowHide, links);
+        pwShowHide.forEach(eyeIcon => {
+            eyeIcon.addEventListener("click", () => {
+                let pwFields = eyeIcon.parentElement.parentElement.querySelectorAll(".password");
+                // console.log("pwFields")
+                pwFields.forEach(password => {
+                    if (password.type === "password") {
+                        password.type = "text";
+                        eyeIcon.classList.replace("bx-show", "bx-hide");
+                        return;
+                    }
+                    password.type = "password";
+                    eyeIcon.classList.replace("bx-hide", "bx-show");
+                })
+            })
+        })
+        links.forEach(link => {
+            link.addEventListener("click", e => {
+                e.preventDefault();//preventing form submission
+                forms.classList.toggle("show-signup");
+            })
+        })
+
+
+
+    </script>
+</body>
+
+</html>

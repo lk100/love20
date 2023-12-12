@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alaska-An Ageless Adventure </title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="alaska.css">
+    <style>
+        .body {
+            background-color: yellow;
+            float: right;
+            display: grid;
+            place-items: center;
+            margin-right: 20px;
+
+        }
+
+        .drop-down {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.322);
+            width: 200px;
+            cursor: pointer;
+            border-radius: 6px;
+            padding: 0.5rem;
+
+        }
+
+        .wrapper {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+
+
+        }
+
+        .arrow {
+            font-size: 12px;
+        }
+
+        .list {
+            position: absolute;
+            background-color: #fff;
+            top: 35px;
+            left: 0;
+            border-radius: 0 0 5px 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.322);
+            cursor: pointer;
+            max-height: 250px;
+            width: 100%;
+            border-radius: 6px;
+            display: none;
+
+        }
+
+        .main {
+            padding-right: 12px;
+        }
+
+        .item {
+            display: flex;
+            justify-content: right;
+            padding: 0.5rem 1rem;
+            gap: 0.5rem;
+        }
+
+        .show {
+            display: block;
+        }
+
+        #banner {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            align-items: center;
+            background-image: url("tshirts/topbanner.jpg");
+            width: 100%;
+            height: 40vh;
+            background-size: cover;
+            background-position: center;
+
+        }
+
+        .section-m1 {
+            margin: 40px 0;
+        }
+
+
+        .tshirtshome {
+            margin-top: 20px;
+        }
+
+        #product1 .sub-container {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 110px;
+            flex-wrap: wrap;
+        }
+        .tshirtshome h2{
+            font-size: 55px;
+            margin-top: 88px;
+        }
+
+        
+    </style>
+</head>
+
+<body>
+    <section id="header">
+        <a href="Vein.html"><img src="Vein.png" id="logo" alt="" srcset=""></a>
+        <div class="box">
+            <input type="text" placeholder="Search.....">
+            <a href="Vein.html">
+                <i class="bi bi-search"></i>
+            </a>
+        </div>
+        <div>
+            <ul id="navbar">
+                <li><a href="Men.html">Men</a></li>
+                <li><a href="Women.html">Women</a></li>
+                <li><a href="Beauty.html">Beauty</a></li>
+                <li><a href="Profile.html"><i id="profile" class="bi bi-person"></i></a></li>
+                <li><a href="Wishlist.html"><i class="bi bi-heart"></i></a></li>
+                <li><a href="Cart.html"><i class="bi bi-bag"></i></a></li>
+
+            </ul>
+        </div>
+    </section>
+    <section id="banner" class="section-m1 ">
+    </section>
+    <div class="body">
+        <div class="drop-down">
+            <div class="wrapper">
+                <div class="main">
+                    Sort By:
+                </div>
+                <div class="selected">Popularity</div>
+
+            </div>
+            <i class='bx bxs-down-arrow arrow'></i>
+            <div class="list">
+                <div class="item">
+                    <div class="text">High to Low</div>
+                </div>
+                <div class="item">
+                    <div class="text">Low to High</div>
+                </div>
+                <div class="item">
+                    <div class="text">Popularity</div>
+                </div>
+                <div class="item">
+                    <div class="text">New Arrival</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section id="product1" class="section-1  tshirtshome">
+        <h2>Shirts</h2>
+
+        <div class="pro-containers sub-container">
+            <div class="pro">
+                <img src="n1.jpg" alt="" srcset="">
+                <div class="des">
+                    <span>adidas</span>
+                    <h5>Cartoon Astronaut T-Shirts</h5>
+                    <div class="stars">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+
+                    </div>
+                    <h4>INR 699</h4>
+
+                </div>
+                <a href="#"><i class="bi bi-cart  cart"></i></a>
+            </div>
+            <div class="pro">
+                <img src="n2.jpg" alt="" srcset="">
+                <div class="des">
+                    <span>adidas</span>
+                    <h5>Cartoon Astronaut T-Shirts</h5>
+                    <div class="stars">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+
+                    </div>
+                    <h4>INR 699</h4>
+
+                </div>
+                <a href="#"><i class="bi bi-cart  cart"></i></a>
+            </div>
+            <div class="pro">
+                <img src="n3.jpg" alt="" srcset="">
+                <div class="des">
+                    <span>adidas</span>
+                    <h5>Cartoon Astronaut T-Shirts</h5>
+                    <div class="stars">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+
+                    </div>
+                    <h4>INR 699</h4>
+
+                </div>
+                <a href="#"><i class="bi bi-cart  cart"></i></a>
+            </div>
+            <div class="pro">
+                <img src="n1.jpg" alt="" srcset="">
+                <div class="des">
+                    <span>adidas</span>
+                    <h5>Cartoon Astronaut T-Shirts</h5>
+                    <div class="stars">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+
+                    </div>
+                    <h4>INR 699</h4>
+
+                </div>
+                <a href="#"><i class="bi bi-cart  cart"></i></a>
+            </div>
+            <div class="pro">
+                <img src="n2.jpg" alt="" srcset="">
+                <div class="des">
+                    <span>adidas</span>
+                    <h5>Cartoon Astronaut T-Shirts</h5>
+                    <div class="stars">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+
+                    </div>
+                    <h4>INR 699</h4>
+
+                </div>
+                <a href="#"><i class="bi bi-cart  cart"></i></a>
+            </div>
+            <div class="pro">
+                <img src="n3.jpg" alt="" srcset="">
+                <div class="des">
+                    <span>adidas</span>
+                    <h5>Cartoon Astronaut T-Shirts</h5>
+                    <div class="stars">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+
+                    </div>
+                    <h4>INR 699</h4>
+
+                </div>
+                <a href="#"><i class="bi bi-cart  cart"></i></a>
+            </div>
+
+            <div class="pro">
+                <img src="n1.jpg" alt="" srcset="">
+                <div class="des">
+                    <span>adidas</span>
+                    <h5>Cartoon Astronaut T-Shirts</h5>
+                    <div class="stars">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+
+                    </div>
+                    <h4>INR 699</h4>
+
+                </div>
+                <a href="#"><i class="bi bi-cart  cart"></i></a>
+            </div>
+            <div class="pro">
+                <img src="n2.jpg" alt="" srcset="">
+                <div class="des">
+                    <span>adidas</span>
+                    <h5>Cartoon Astronaut T-Shirts</h5>
+                    <div class="stars">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+
+                    </div>
+                    <h4>INR 699</h4>
+
+                </div>
+                <a href="#"><i class="bi bi-cart  cart"></i></a>
+            </div>
+            <div class="pro">
+                <img src="n3.jpg" alt="" srcset="">
+                <div class="des">
+                    <span>adidas</span>
+                    <h5>Cartoon Astronaut T-Shirts</h5>
+                    <div class="stars">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+
+                    </div>
+                    <h4>INR 699</h4>
+
+                </div>
+                <a href="#"><i class="bi bi-cart  cart"></i></a>
+            </div>
+            <div class="pro">
+                <img src="n1.jpg" alt="" srcset="">
+                <div class="des">
+                    <span>adidas</span>
+                    <h5>Cartoon Astronaut T-Shirts</h5>
+                    <div class="stars">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+
+                    </div>
+                    <h4>INR 699</h4>
+
+                </div>
+                <a href="#"><i class="bi bi-cart  cart"></i></a>
+            </div>
+            <div class="pro">
+                <img src="n2.jpg" alt="" srcset="">
+                <div class="des">
+                    <span>adidas</span>
+                    <h5>Cartoon Astronaut T-Shirts</h5>
+                    <div class="stars">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+
+                    </div>
+                    <h4>INR 699</h4>
+
+                </div>
+                <a href="#"><i class="bi bi-cart  cart"></i></a>
+            </div>
+            <div class="pro">
+                <img src="n3.jpg" alt="" srcset="">
+                <div class="des">
+                    <span>adidas</span>
+                    <h5>Cartoon Astronaut T-Shirts</h5>
+                    <div class="stars">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+
+                    </div>
+                    <h4>INR 699</h4>
+
+                </div>
+                <a href="#"><i class="bi bi-cart  cart"></i></a>
+            </div>
+
+
+
+
+
+
+        </div>
+    </section>
+    <footer class="section-p1">
+        <div class="col">
+            <img src="Vein.png" id="logo" alt="" srcset="">
+        </div>
+        <div class="col">
+            <h4>Online Shopping</h4>
+            <a href="#">Men</a>
+            <a href="#">Women</a>
+            <a href="#">Beauty</a>
+            <a href="#">Wallet</a>
+            <a href="#">Contact Us</a>
+        </div>
+        <div class="col">
+            <h4>Customer Services</h4>
+            <a href="#">Help & Support</a>
+            <a href="#">Track Order</a>
+            <a href="#">Privacy Policies</a>
+        </div>
+        <div class="col install">
+            <h3>Install App</h3>
+            <p>From App Store or Google Play</p>
+            <div class="row">
+                <img src="img/pay/app.jpg" alt="">
+                <img src="img/pay/play.jpg" alt="">
+            </div>
+        </div>
+        </div>
+        <div class="experience">
+            <h5>MEN’S SHOPPING AT MYNTRA: A SUPERIOR EXPERIENCE</h5>
+            <br>
+            <p>Vein is one of the best sites when it comes to online shopping for men. The finest of material,
+                superior design and unbeatable style go into the making of our men’s shopping collection. Our range of
+                online shopping men’s wear, accessories, footwear and personal care products are second to none.
+                Compared with other men’s shopping sites, Myntra brings you the best price products which won’t hurt
+                your pocket. With seasonal discounts on trendy casual wear, suits, blazers, sneakers and more, online
+                shopping for men at Myntra just gets even more irresistible!
+
+            </p>
+            <br>
+
+            <h5>ONLINE SHOPPING FOR MEN: OPTIONS UNLIMITED</h5>
+            <br>
+
+            <p>1.Opt for a charming yet laid-back look with cool T-shirts and casual shirts worn with stylish jeans,
+                casual trousers or shorts. Stay sharp and sophisticated with our smart options in formal shirts and
+                trousers. Look dapper when meeting your clients in our smooth suits. Put on trendy blazers for
+                formal occasions. On your online men’s clothes’ shopping journey, make sure you include kurtas,
+                jackets and sherwanis from our festive wear collection. Stay warm and comfortable in sweaters and
+                sweatshirts. Get fit and ready for adventure, with our sports and active wear collection.</p>
+            <p>2.Once you are done with your online men’s clothes’ shopping, make sure you pick up the right
+                accessories to complement your look. Whether you are travelling to work or outside the city our wide
+                variety of bags, backpacks and luggage collection will ensure you are well-packed. Our beautiful
+                watches and smart watches work well to enhance your overall style quotient. Reach out for our
+                sunglasses during the summers – let your eyes stay protected while you opt for maximum swag.</p>
+            <p>3.Bring impeccable style to your shoe closet with our incredible collection of footwear for men. Look
+                classy during formal and semi-formal occasions with derbies, loafers and oxfords. Stay hip and
+                happening in parties with boat shoes, monks and brogues from our casual men’s footwear range. Lead
+                an active lifestyle with sneakers and running shoes from our sports footwear selection. Pick up
+                sandals, floaters and flip-flops for a trip to the beach. We also host socks in our men’s online
+                shopping collection. That’s basically everything under one roof!</p>
+
+            <br>
+            <p>Make sure you check out fun printed men’s T-shirts featuring your favourite characters from DC Comics and
+                Marvel studios. Relive the magic of your favourite superhero from Justice League. Fly high with
+                Superman, battle the bad guys with Batman, or get trendy in lightning-speed with a Flash T-shirt. Grab
+                our cool Marvel Avengers T-shirts. Stay powered up with the Iron Man, or walk with the warriors in a
+                Thor T-shirt.</p>
+            <br>
+            <p>Our online shopping fashion for mens collection includes even more amazing merchandise such as innerwear,
+                sleepwear, track pants, personal care, wallets, belts and other fashion accessories.
+            </p>
+
+            <br>
+            <h5>MEN’S SHOPPING MADE EASY AT VEIN</h5>
+            <br>
+            <p>Vein is the most convenient men’s online store, what with our simplified shopping and payment
+                procedures. With just a few clicks of the mouse or taps on your smartphone, you can buy your favorites
+                from the best men’s brands right away.
+            </p>
+
+
+        </div>
+        <div id="copyright2" class="copyright">
+            <p>
+                &#169 2023 www.vein.com. All Rights Reserved.
+            </p>
+        </div>
+
+    </footer>
+
+
+    <script>
+        const dropdown = document.querySelector('.drop-down')
+        const list = document.querySelector('.list')
+        const selected = document.querySelector('.selected')
+
+        dropdown.addEventListener('click', () => {
+            list.classList.toggle('show');
+        })
+
+        list.addEventListener('click', (e) => {
+            const text = e.target.querySelector(".text")
+            selected.innerHTML = text.innerHTML;
+        })
+    </script>
+    <!-- rc="ssorting.js" -->
+</body>
+
+</html>
