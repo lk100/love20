@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindBliss</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <div id="wrapper">
+        <nav class="navbar">
+            <div class="navbar-brand">MindBliss</div>
+            <form class="search-form">
+                <input type="text" placeholder=" " class="search-input" onclick="toggleChatbot()">
+                <img class="search-icon" src="search.svg" alt="Search">
+            </form>
+            <ul class="navbar-links">
+                <li><button onclick="openMoodModal()">Mood</button></li>
+            </ul>
+        </nav>
+
+        <!-- Mood Modal -->
+
+
+        <!-- Chatbot -->
+        <div class="chatbot" id="chatbot">
+            <div class="chatbot-header">
+                <span>Chat with us</span>
+                <button onclick="toggleChatbot()">Close</button>
+            </div>
+            <div class="chatbot-body" id="chatbot-body">
+                <p class="chatbot-message">Hello! How can I assist you today?</p>
+            </div>
+            <div class="chatbot-footer">
+                <input type="text" id="user-message" placeholder="Type your message..."
+                    onkeydown="if(event.key === 'Enter') sendMessage()">
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+        <div class="background-container">
+
+        </div>
+
+        <!-- Features Section -->
+        <main>
+            <div class="test-container">
+                <a href="stress.html">
+                    <div class="test-card">
+                        <a href="Stress.html">
+
+                            <h2>Stress and Coping Style Assessment</h2>
+                            <p>Discover your stress levels and how you manage them.</p>
+                        </a>
+                    </div>
+                </a>
+                <a href="Worklife.html">
+
+                    <div class="test-card">
+                        <a href="Worklife.html">
+
+                            <h2>Work-Life Balance Quiz</h2>
+                            <p>Evaluate your personal and professional balance.</p>
+                        </a>
+                    </div>
+                </a>
+                <a href="Worklife.html">
+                    <div class="test-card">
+                        <a href="Sleep.html">
+                            <h2>Sleep Quality & Mental Health Check</h2>
+                            <p>Understand how your sleep affects your mental health.</p>
+                        </a>
+                    </div>
+                </a>
+                <a href="Worklife.html">
+                    <div class="test-card">
+                        <a href="Gratitude.html">
+                            <h2>Gratitude and Positivity Tracker</h2>
+                            <p>Adopt a gratitude-based mindset to enhance well-being.</p>
+                        </a>
+                    </div>
+                </a>
+            </div>
+        </main>
+
+
+
+        <!-- Featured Blogs Section -->
+        <div class="blogs">
+            <h2>Featured Blogs</h2>
+            <p>Unraveling thoughts: a journey to mental wellness</p>
+            <div class="loader" style="display: none;">
+                <p>Loading articles...</p>
+            </div>
+            <div class="fe-blog">
+                <!-- Blogs will be displayed here -->
+            </div>
+        </div>
+
+        <!-- Weather Widget Section -->
+        <div id="weather-widget">
+            <p id="weather-text">Fetching your location...</p>
+        </div>
+    </div>
+
+    <div id="mood-modal" class="modal">
+
+        <div class="modal-content"> <span class="close-btn" onclick="closeMoodModal()">×</span>
+            <h2>How are you feeling today?</h2>
+            <div class="modal-main">
+                <textarea id="user-mood-input" placeholder="Type your mood here..."></textarea> <button
+                    onclick="submitMood()" class="submit-mood">Submit</button> <!-- New sections -->
+            </div>
+            <div class="mood-details">
+                <div class="mood-history">
+                    <h3>Your Mood Graph</h3>
+
+                    <!-- Buttons -->
+                    <button id="date-emotion-btn"
+                        style="background-color: #008CBA; color: white; padding: 12px 24px; font-size: 16px; margin: 8px; border: none; cursor: pointer; border-radius: 25px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); transition: all 0.3s ease;">Date
+                        vs Emotion</button>
+                    <button id="pie-chart-btn"
+                        style="background-color: #f44336; color: white; padding: 12px 24px; font-size: 16px; margin: 8px; border: none; cursor: pointer; border-radius: 25px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); transition: all 0.3s ease;">Pie
+                        Chart</button>
+                    <button id="myjournal-btn"
+                        style="background-color: #94b21b; color: white; padding: 12px 24px; font-size: 16px; margin: 8px; border: none; cursor: pointer; border-radius: 25px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); transition: all 0.3s ease;">My
+                        Journal</button>
+                    <!-- Canvas Elements -->
+                    <canvas id="mood-graph-canvas" width="800" height="600"></canvas>
+                    <canvas id="mood-pie-canvas" width="400" height="400" style="display: none;"></canvas>
+
+                    <!-- Table to display Journal -->
+                    <div id="journal-container" style="display: none;">
+                        <table id="journal-table" style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Emotion</th>
+                                    <th>Date</th>
+                                    <th>Details</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Journal data will be inserted here -->
+                            </tbody>
+                        </table>
+                    </div>
+
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+    <script>
+
+        // home.js
+        window.addEventListener('DOMContentLoaded', function () {
+            const token = localStorage.getItem('token');
+            console.log(token); // Check if token is present
+            if (!token) {
+                window.location.href = 'userlogin.html'; // Redirect to login page if no token found
+            } else {
+                // Optionally, you can verify the token with the backend for validity
+                fetch('http://localhost:5000/verify-token', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}` // Send token in Authorization header
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data); // Log the response from the backend
+                        if (data.message === 'Token is valid') {
+                            localStorage.setItem('userId', data.user.userId);
+                            const successMessage = document.createElement('div');
+                            successMessage.textContent = 'Welcome Pal';
+                            successMessage.style.padding = '10px';
+                            successMessage.style.backgroundColor = 'green';
+                            successMessage.style.color = 'white';
+                            successMessage.style.textAlign = 'center';
+                            successMessage.style.marginTop = '20px';
+                            document.body.prepend(successMessage); // Insert the success message at the top
+                        } else {
+                            localStorage.removeItem('token');
+                            window.location.href = 'userlogin.html'; // Redirect to login page if token is invalid
+                        }
+                    })
+                    .catch(() => {
+                        localStorage.removeItem('token');
+                        window.location.href = 'userlogin.html'; // Redirect to login page if verification fails
+                    });
+            }
+
+        });
+
+
+
+    </script>
+
+    <!-- External JS Scripts -->
+    <script src="home.js"></script>
+    <script src="chatbot.js"></script>
+    <script src="mood.js"></script>
+
+</body>
+
+</html>

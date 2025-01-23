@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .image-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .image-container img {
+
+            height: 100vh;
+        }
+
+        .worklife-home {
+            position: absolute;
+            top: 100%;
+            right: 20px;
+            transform: translateY(-50%);
+            color: rgb(255, 255, 255);
+            text-align: left;
+            border-radius: 10px;
+        }
+
+        #worklife-home {
+            float: right;
+        }
+
+        .worklife-home #worklife-home span {
+            color: #215063;
+            font-size: large;
+            font-weight: bolder;
+        }
+
+        .worklife-home #worklife-home button {
+            padding: 10px 20px;
+            background-color: #70b8b4;
+            color: black;
+            border: 1px solid #70b8b4;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: medium;
+            font-weight: bold;
+        }
+
+        .worklife-home #worklife-home button:hover {
+            background-color: #3d7d7a;
+        }
+
+        .worklife-home .h4 .p {
+            color: black;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-weight: bold;
+        }
+
+        .worklife-home .h2 {
+            color: #2c4059;
+        }
+
+        /* Popup styling */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .popup-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            text-align: center;
+        }
+
+        .popup-section {
+            background-color: #f1f1f1;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .popup-section p {
+            margin: 10px 0;
+        }
+
+        .popup-section label {
+            display: block;
+            margin: 5px 0;
+            text-align: left;
+        }
+
+        .popup-section label input {
+            margin-right: 10px;
+        }
+
+        /* Add this CSS to make the popup closeable */
+        .popup-close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: transparent;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+
+        .btn-next {
+            padding: 10px 20px;
+            background-color: rgb(131, 171, 183);
+            color: white;
+            border: 1px solid rgb(213, 226, 232);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .btn-next:disabled {
+            background-color: grey;
+            cursor: not-allowed;
+        }
+
+        .btn-next:hover:enabled {
+            background-color: rgb(213, 226, 232);
+        }
+
+        .popup-content p {
+            float: left;
+            font-weight: 500;
+
+        }
+
+        .worklife-matter .stress-info h2 {
+
+            font-family: Georgia, 'Times New Roman', Times, serif;
+
+
+        }
+
+
+        .worklife-matter p {
+            color: black;
+            font-size: 1.2rem;
+        }
+
+        .worklife-matter h5 {
+            color: black;
+            font-size: medium;
+        }
+
+        .worklife-matter h3 {
+            font-size: large;
+        }
+
+
+        /* Table styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #a0c9d5;
+            color: black;
+            font-size: larger;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        td {
+            color: #555;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-weight: 600;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+
+            th,
+            td {
+                padding: 10px;
+            }
+
+            table {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">MindBliss</div>
+        <form class="search-form">
+            <input type="text" placeholder=" " class="search-input" onclick="toggleChatbot()">
+            <img class="search-icon" src="search.svg" alt="Search">
+        </form>
+        <ul class="navbar-links">
+            <li><button onclick="openMoodModal()">Mood</button></li>
+        </ul>
+    </nav>
+    <div class="image-container">
+        <img src="worklife.jpg" alt="" srcset="" style="width: 100%;">
+
+
+    </div>
+    <div class="worklife-home">
+        <div id="worklife-home">
+            <h2 class="h2">Transform Your Stress into Serenity</h2>
+            <p class="p">Unlock the Secrets to a <span>Calm and Balanced Life</span></p>
+            <h4 class="h4">Start Your Free Stress Relief Journey Now</h4>
+            <button onclick="openPopup()">Assess</button>
+        </div>
+    </div>
+
+    <div class="popup-overlay" id="popup-overlay">
+        <div class="popup-content">
+            <button class="popup-close-button" onclick="closePopup()">&times;</button>
+
+            <!-- Question 1 -->
+            <div class="popup-section" id="question-1">
+                <p> Question 1:How satisfied are you with your current work-life balance?</p>
+                <br><br><br>
+
+
+                <label><input type="radio" name="q1" value="1" onclick="enableNext('next-1')"> Very
+                    Satisfied</label><br>
+                <label><input type="radio" name="q1" value="2" onclick="enableNext('next-1')">Satisfied </label><br>
+                <label><input type="radio" name="q1" value="3" onclick="enableNext('next-1')">Neutral </label><br>
+                <label><input type="radio" name="q1" value="4" onclick="enableNext('next-1')">Dissatisfied </label><br>
+
+                <button class="btn-next hidden" id="next-1" onclick="showNextQuestion(2,'q1')">Next</button>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="popup-section hidden" id="question-2">
+                <p>How often do you feel overwhelmed by work commitments?p><br><br><br>
+                    <label><input type="radio" name="q2" value="1" onclick="enableNext('next-2')"> Never</label><br>
+                    <label><input type="radio" name="q2" value="2" onclick="enableNext('next-2')"> Rarely</label><br>
+                    <label><input type="radio" name="q2" value="3" onclick="enableNext('next-2')">Sometimes </label><br>
+                    <label><input type="radio" name="q2" value="4" onclick="enableNext('next-2')">Often </label><br>
+                    <button class="btn-next hidden" id="next-2" onclick="showNextQuestion(3,'q2')">Next</button>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="popup-section hidden" id="question-3">
+                <p>Question 3: Do you have enough time for personal activities outside of work?</p><br><br><br>
+                <label><input type="radio" name="q3" value="1" onclick="enableNext('next-3')"> Always </label><br>
+                <label><input type="radio" name="q3" value="2" onclick="enableNext('next-3')">Sometimes </label><br>
+                <label><input type="radio" name="q3" value="3" onclick="enableNext('next-3')">Rarely
+                </label><br>
+                <label><input type="radio" name="q3" value="4" onclick="enableNext('next-3')"> Never</label><br>
+                <button class="btn-next hidden" id="next-3" onclick="showNextQuestion(4,'q3')">Next</button>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="popup-section hidden" id="question-4">
+                <p>Question 4: What is your biggest obstacle to achieving work-life balance?</p><br><br><br>
+                <label><input type="radio" name="q4" value="1" onclick="enableNext('next-4')">Long Work Hours
+                </label><br>
+                <label><input type="radio" name="q4" value="2" onclick="enableNext('next-4')">Lack Of Support At Work
+                </label><br>
+                <label><input type="radio" name="q4" value="3" onclick="enableNext('next-4')"> Difficulty Manage
+                    Times</label><br>
+                <label><input type="radio" name="q4" value="4" onclick="enableNext('next-4')"> Personal
+                    Responsibilitess</label><br>
+                <button class="btn-next hidden" id="next-4" onclick="showNextQuestion(5, 'q4')">Next</button>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="popup-section hidden" id="question-5">
+                <p>Question 5:How would you rate the boundaries between your work and personal life?</p><br><br><br>
+                <label><input type="radio" name="q5" value="1" onclick="enableNext('submit-5')">Very Clear
+                </label><br>
+                <label><input type="radio" name="q5" value="2" onclick="enableNext('submit-5')">Mostly Clear
+                </label><br>
+                <label><input type="radio" name="q5" value="3" onclick="enableNext('submit-5')">Mostly Blurred
+                </label><br>
+                <label><input type="radio" name="q5" value="4" onclick="enableNext('submit-5')"> Neutral</label><br>
+                <button class="btn-next hidden" id="submit-5" onclick="submitAnswers()">Submit</button>
+            </div>
+        </div>
+    </div>
+    <div id="weather-widget">
+        <p id="weather-text">Fetching your location...</p>
+    </div>
+
+
+
+
+    <div class="worklife -matter" style="margin: 20px;">
+        <div class="worklife-info" style="line-height: 35px; ">
+
+            <h1 style="font-size: 1.5rem; font-family: Georgia, 'Times New Roman', Times, serif;"
+                id="worklife-info header">1. Work-Life Balance: A Comprehensive Guide</h1>
+
+
+            <p>Work-life balance refers to the ability to manage one's professional and personal lives in a way that
+                maintains overall well-being and fulfillment. It is not just about finding the right amount of time to
+                work or rest but creating a sustainable lifestyle where both aspects complement each other. Achieving
+                this balance is crucial for individuals to avoid burnout, reduce stress, and lead happier, more
+                productive lives. It also ensures that personal growth, family time, and self-care do not take a back
+                seat to work responsibilities.</p>
+
+
+
+            </ul>
+
+            <h1 style="font-size: 1.5rem; font-family: Georgia, 'Times New Roman', Times, serif;"
+                id="worklife-info header">2. Importance of Work-Life Balance</h1>
+
+            <ul style="list-style-type: disc;">
+                <li>
+                    <h3 style="font-family: Georgia, 'Times New Roman', Times, serif;">Physical
+                        Health:</h3>
+                    <p>Chronic work stress often manifests physically, leading to problems like insomnia, heart disease,
+                        and weakened immunity. Balancing work and personal life ensures that individuals dedicate
+                        sufficient time to self-care practices, such as exercise, healthy eating, and regular medical
+                        check-ups.
+
+                        Physical activities not only improve overall health but also enhance cognitive abilities,
+                        helping individuals perform better at work. For instance, a simple routine like a morning jog
+                        can boost energy levels and mental clarity throughout the day.
+
+                        Additionally, work-life balance allows for adequate rest, ensuring the body has time to repair
+                        and rejuvenate. Sleep, often sacrificed during stressful periods, is critical for both physical
+                        health and emotional stability, emphasizing the importance of balance.</p>
+                </li>
+                <li>
+                    <h3 style="font-family: Georgia, 'Times New Roman', Times, serif;">Mental Health:</h3>
+                    <p>Work-life balance significantly contributes to mental well-being. When people allocate adequate
+                        time to unwind and recharge, they are less likely to experience stress and burnout. Stress, if
+                        unmanaged, can lead to anxiety and depression, which hinder not only professional performance
+                        but also personal satisfaction.
+
+                        Having a clear boundary between work and personal life ensures that individuals don’t carry the
+                        emotional baggage of professional challenges into their homes. For instance, spending quality
+                        time with family or engaging in hobbies can act as a stress reliever, fostering a positive
+                        mindset.
+
+                        Moreover, a balanced life allows individuals to cultivate mindfulness and resilience. These
+                        traits help in dealing with unforeseen work pressures and personal issues effectively, creating
+                        a harmonious mental state.</p>
+                </li>
+
+            </ul>
+            <h1 style="font-size: 1.5rem; font-family: Georgia, 'Times New Roman', Times, serif;"
+                id="worklife-info header">4. Enhancing Happiness and Fulfillment</h1>
+            <p>Work-life balance is closely tied to overall happiness and life satisfaction. When individuals manage
+                to balance their job responsibilities with activities they enjoy, such as spending time with family,
+                traveling, or pursuing hobbies, they feel a sense of fulfillment. This balance provides a sense of
+                purpose in both personal and professional realms, where neither one is sacrificed for the other.
+
+                A life full of unbalanced work commitments can lead to feelings of isolation, resentment, and
+                dissatisfaction. In contrast, maintaining a balance can improve an individual's overall well-being
+                by fostering positive relationships, pursuing passions, and creating opportunities for growth. For
+                instance, taking weekends to relax with family or engaging in creative activities not only
+                rejuvenates individuals but also enhances the quality of work they produce when they return to their
+                professional duties.
+
+            </p>
+            <h1 style="font-size: 1.5rem; font-family: Georgia, 'Times New Roman', Times, serif;"
+                id="worklife-info header">3. Unique Data and Insights on Work-Life Balance</h1>
+            <div style="display: flex; justify-content: center;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Statistic</th>
+                            <th>Data</th>
+                            <th>Source</th>
+                            <th>Insight</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Percentage of Employees Reporting Burnout</td>
+                            <td>59% of employees report experiencing burnout.</td>
+                            <td>Gallup Survey, 2023</td>
+                            <td>Burnout is a significant issue, highlighting the need for better work-life balance
+                                strategies.</td>
+                        </tr>
+                        <tr>
+                            <td>Impact of Flexible Work Options on Employee Retention</td>
+                            <td>80% of employees say flexible work options would improve their work-life balance.</td>
+                            <td>LinkedIn Global Talent Trends Report, 2022</td>
+                            <td>Offering flexibility in work arrangements can help businesses retain top talent.</td>
+                        </tr>
+                        <tr>
+                            <td>Average Weekly Hours Worked in the U.S.</td>
+                            <td>The average American works 34.4 hours per week.</td>
+                            <td>Bureau of Labor Statistics, 2023</td>
+                            <td>While work hours have reduced over time, the impact on personal time remains a concern.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Employees' Satisfaction with Work-Life Balance</td>
+                            <td>53% of employees feel satisfied with their work-life balance.</td>
+                            <td>Buffer State of Remote Work, 2023</td>
+                            <td>More than half of employees still struggle with balancing work and personal life.</td>
+                        </tr>
+                        <tr>
+                            <td>Percentage of Employees Who Feel Work-Life Balance Is Impossible</td>
+                            <td>43% of employees feel that maintaining a work-life balance is impossible.</td>
+                            <td>Forbes, 2023</td>
+                            <td>Many employees report feeling overwhelmed, underscoring the need for systemic changes.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Effect of Work-Life Balance on Employee Productivity</td>
+                            <td>Employees with a balanced life are 25% more productive.</td>
+                            <td>Harvard Business Review, 2022</td>
+                            <td>Balancing work with personal time results in higher productivity and engagement.</td>
+                        </tr>
+                        <tr>
+                            <td>Time Spent on Work vs. Personal Time in Remote Work</td>
+                            <td>40% of remote workers report working longer hours than before.</td>
+                            <td>Buffer State of Remote Work, 2023</td>
+                            <td>Remote work can blur boundaries, leading to increased work hours and less personal time.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Impact of Time Off on Employee Mental Health</td>
+                            <td>64% of employees report improved mental health after taking vacation time.</td>
+                            <td>American Psychological Association, 2022</td>
+                            <td>Taking regular time off helps employees recharge and improves their mental well-being.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <p">If you identify with several of these symptoms, consider speaking to a healthcare provider for
+                support. Additionally, incorporating stress-relief techniques such as regular exercise, mindfulness
+                practices, and ensuring adequate sleep can help manage stress.</p>
+
+
+
+
+        </div>
+
+
+
+    </div>
+
+    <div class="chatbot" id="chatbot">
+        <div class="chatbot-header">
+            <span>Chat with us</span>
+            <button onclick="toggleChatbot()">Close</button>
+        </div>
+        <div class="chatbot-body" id="chatbot-body">
+            <p class="chatbot-message">Hello! How can I assist you today?</p>
+        </div>
+        <div class="chatbot-footer">
+            <input type="text" id="user-message" placeholder="Type your message..."
+                onkeydown="if(event.key === 'Enter') sendMessage()">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+
+    <script>
+        // Function to open the popup
+        // Function to open the popup
+        function openPopup() {
+            console.log('Opening popup');
+            document.getElementById('popup-overlay').style.display = 'flex';
+        }
+
+        // Function to close the popup
+        function closePopup() {
+            console.log('Closing popup');
+            document.getElementById('popup-overlay').style.display = 'none';
+        }
+
+        // Function to show the next question
+        function showNextQuestion(nextQuestionId, question) {
+            console.log(`Showing next question: ${nextQuestionId} for question: ${question}`);
+            const selectedOption = document.querySelector(`input[name="${question}"]:checked`);
+            if (selectedOption) {
+                console.log(`Selected option: ${selectedOption.value}`);
+                saveAnswer(question, selectedOption.value);
+                document.getElementById('question-' + (nextQuestionId - 1)).classList.add('hidden');
+                document.getElementById('question-' + nextQuestionId).classList.remove('hidden');
+            } else {
+                console.log('No option selected');
+            }
+        }
+
+        // Function to enable the "Next" button when an option is selected
+        function enableNext(buttonId) {
+            console.log(`Enabling next button: ${buttonId}`);
+            document.getElementById(buttonId).classList.remove('hidden');
+        }
+
+        // Function to save answers
+        function saveAnswer(question, answer) {
+            console.log(`Saving answer: ${answer} for question: ${question}`);
+            fetch('http://localhost:5000/save-answer', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include', // Include cookies to send session data
+                body: JSON.stringify({ question, answer })
+            })
+                .then(response => response.json())
+                .then(data => console.log(data.message))
+                .catch(error => console.error('Error:', error));
+        }
+
+        // Function to handle the submission of answers
+        function submitAnswers() {
+            alert('Your answers have been submitted. Thank you!');
+            closePopup();
+        }
+
+
+
+
+        // home.js
+        window.addEventListener('DOMContentLoaded', function () {
+            const token = localStorage.getItem('token');
+
+            if (!token) {
+                window.location.href = 'userlogin.html'; // Redirect to login page if no token found
+            } else {
+                // Optionally, you can verify the token with the backend for validity
+                fetch('http://localhost:5000/verify-token', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}` // Send token in Authorization header
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.message === 'Token is valid') {
+                            // Show a success message if the token is valid
+                            const successMessage = document.createElement('div');
+                            successMessage.textContent = 'Welcome Pal';
+                            successMessage.style.padding = '10px';
+                            successMessage.style.backgroundColor = 'green';
+                            successMessage.style.color = 'white';
+                            successMessage.style.textAlign = 'center';
+                            successMessage.style.marginTop = '20px';
+                            document.body.prepend(successMessage); // Insert the success message at the top
+                        } else {
+                            // If token is invalid or expired, remove token and redirect
+                            localStorage.removeItem('token');
+                            window.location.href = 'userlogin.html'; // Redirect to login page
+                        }
+                    })
+                    .catch(() => {
+                        // Handle any errors (e.g., network issues)
+                        localStorage.removeItem('token');
+                        window.location.href = 'userlogin.html'; // Redirect to login page if verification fails
+                    });
+            }
+        });
+
+        function fetchDataAndUpdateChart() {
+            const token = localStorage.getItem('token');
+
+            fetch('http://localhost:5000/get-scores', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data && data.length > 0) {
+                        const labels = data.map(item => new Date(item.created_at).toLocaleDateString());
+                        const scores = data.map(item => item.aggregate_score);
+
+                        // Calculate trendline
+                        function calculateTrendline(scores) {
+                            let x = scores.map((_, i) => i);
+                            let y = scores;
+                            let n = x.length;
+                            let sumX = x.reduce((a, b) => a + b, 0);
+                            let sumY = y.reduce((a, b) => a + b, 0);
+                            let sumXY = x.reduce((sum, xi, i) => sum + xi * y[i], 0);
+                            let sumX2 = x.reduce((sum, xi) => sum + xi * xi, 0);
+                            let slope = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
+                            let intercept = (sumY - slope * sumX) / n;
+                            return x.map(xi => slope * xi + intercept);
+                        }
+
+                        const trendlineData = calculateTrendline(scores);
+                        const averageScore = scores.reduce((sum, score) => sum + score, 0) / scores.length;
+                        const averageData = Array(scores.length).fill(averageScore);
+
+                        const ctx = document.getElementById('lineChart').getContext('2d');
+
+                        if (lineChart) lineChart.destroy();
+
+                        lineChart = new Chart(ctx, {
+                            type: 'line',
+                            data: {
+                                labels: labels,
+                                datasets: [
+                                    { label: 'Mental Well-being Progress', data: scores, borderColor: 'blue' },
+                                    { label: 'Trendline', data: trendlineData, borderColor: 'red', borderDash: [5, 5] },
+                                    { label: 'Average Score', data: averageData, borderColor: 'purple', borderDash: [5, 5] }
+                                ]
+                            },
+                            options: {
+                                responsive: true,
+                                scales: {
+                                    y: { min: 0, max: 25 }
+                                }
+                            }
+                        });
+                    } else {
+                        console.error('No data found to render the chart');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching scores:', error);
+                });
+        }
+
+        // Update the chart after submission
+        function updateChartAfterSubmit() {
+            fetchDataAndUpdateChart();
+        }
+
+        // Periodically update the chart every 10 seconds
+        setInterval(fetchDataAndUpdateChart, 10000);
+
+
+
+
+
+    </script>
+
+    <script src="home.js"></script>
+    <script src="chatbot.js"></script>
+    <script src="mood.js"></script>
+
+
+</body>
+
+</html>
