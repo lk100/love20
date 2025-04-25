@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Page</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        table {
+
+            width: 80%;
+            border-collapse: collapse;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: 15px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            color: #444;
+            margin-bottom: 15px;
+        }
+
+        .image-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 80vh;
+        }
+
+        .stress-home {
+            position: absolute;
+            top: 75%;
+            right: 20px;
+            transform: translateY(-50%);
+            color: rgb(255, 255, 255);
+            text-align: left;
+            border-radius: 10px;
+        }
+
+        #stress-home {
+            float: right;
+        }
+
+        .stress-home #stress-home span {
+            color: rgb(16, 7, 67);
+            font-size: large;
+            font-weight: bolder;
+        }
+
+        .stress-home #stress-home button {
+            padding: 10px 20px;
+            background-color: rgb(131, 171, 183);
+            color: white;
+            border: 1px solid rgb(213, 226, 232);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .stress-home #stress-home button:hover {
+            background-color: rgb(213, 226, 232);
+        }
+
+        .stress-home h4,
+        p {
+            color: black;
+        }
+
+        /* Popup styling */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .popup-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+
+            position: relative;
+            gap: 20px;
+            text-align: center;
+        }
+
+        .popup-section {
+            background-color: #f1f1f1;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .popup-section p {
+            margin: 10px 0;
+        }
+
+        .popup-section label {
+            display: block;
+            margin: 5px 0;
+            text-align: left;
+        }
+
+        .popup-section label input {
+            margin-right: 10px;
+        }
+
+        /* Add this CSS to make the popup closeable */
+        .popup-close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: transparent;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+
+        .btn-next {
+            padding: 10px 20px;
+            background-color: rgb(131, 171, 183);
+            color: white;
+            border: 1px solid rgb(213, 226, 232);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .btn-next:disabled {
+            background-color: grey;
+            cursor: not-allowed;
+        }
+
+        .btn-next:hover:enabled {
+            background-color: rgb(213, 226, 232);
+        }
+
+        .popup-content p {
+            float: left;
+            font-weight: 500;
+
+        }
+
+        .stress-matter .stress-info h2 {
+
+            font-family: Georgia, 'Times New Roman', Times, serif;
+
+
+        }
+
+
+        .stress-matter p {
+            color: black;
+            font-size: 1.2rem;
+        }
+
+        .stress-matter h5 {
+            color: black;
+            font-size: medium;
+        }
+
+        .stress-matter h3 {
+            font-size: large;
+        }
+
+
+        main {
+            padding: 20px;
+        }
+
+        /* Stress Quiz Card */
+        .quiz-card {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            width: 45%;
+            /* Two blocks per row */
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .quiz-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Stress Popup */
+        /* Stress Popup Background */
+        /* Stress Popup Styles */
+        .stress-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        /* Fade-in effect for Popup */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Popup Content */
+        .stress-popup-content {
+            background: #e0f1f3;
+            /* Light blue theme */
+            padding: 100px;
+            border-radius: 12px;
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            animation: popupContentFade 0.5s ease-out;
+        }
+
+        /* Popup content fade */
+        @keyframes popupContentFade {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Close Button Styles */
+        #stress-close-popup {
+            margin-top: 20px;
+            padding: 12px 25px;
+            background-color: #4caf50;
+            color: #ffffff;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #stress-close-popup:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Breathing Timer */
+        .breathing-timer {
+            margin-top: 20px;
+            text-align: center;
+            color: #333;
+        }
+
+        /* Circle Container and Countdown Styling */
+        .circle-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 30px;
+            width: 150px;
+            height: 150px;
+        }
+
+        /* Circle Background */
+        .circle {
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border: 5px solid #4caf50;
+            /* Border to represent the progress bar */
+            background: #e0f1f3;
+            transition: transform 4s ease-in-out, background-color 4s ease-in-out;
+        }
+
+        /* Circular Progress Bar */
+        .progress-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            /* background: conic-gradient(#4caf50 0% 0%, transparent 0% 100%);
+            animation: progressAnimation 4s linear forwards; */
+        }
+
+        /* Countdown number inside the circle */
+        .countdown-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .countdown {
+            font-size: 3em;
+            font-weight: bold;
+            color: #4caf50;
+        }
+
+        /* Prompt Text */
+        .prompt {
+            font-size: 1.5em;
+            color: #333;
+            margin-top: 20px;
+            font-weight: 600;
+        }
+
+        /* Smooth transition for prompt */
+        @keyframes fadeInPrompt {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* Circular Progress Animation */
+        @keyframes progressAnimation {
+            0% {
+                background: conic-gradient(#4caf50 0% 0%, transparent 0% 100%);
+            }
+
+            100% {
+                background: conic-gradient(#4caf50 100% 100%, transparent 100% 100%);
+            }
+        }
+
+        canvas {
+            max-width: 100%;
+            margin: 10px auto;
+        }
+
+        #ip {
+            text-align: center;
+            font-size: 20px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">MindBliss</div>
+        <form class="search-form">
+            <input type="text" placeholder=" " class="search-input" onclick="toggleChatbot()">
+            <img class="search-icon" src="search.svg" alt="Search">
+        </form>
+        <ul class="navbar-links">
+            <li><button onclick="openMoodModal()">Mood</button></li>
+        </ul>
+    </nav>
+    <div class="image-container">
+        <img src="stresshome.jpg" alt="" srcset="" style="width: 100%;">
+    </div>
+    <div class="stress-home">
+        <div id="stress-home">
+            <h2>Transform Your Stress into Serenity</h2>
+            <p>Unlock the Secrets to a <span>Calm and Balanced Life</span></p>
+            <h4>Start Your Free Stress Relief Journey Now</h4>
+            <button onclick="openPopup()">Assess</button>
+        </div>
+    </div>
+
+    <!-- Popup overlay and content -->
+    <div class="popup-overlay" id="popup-overlay">
+        <div class="popup-content">
+            <button class="popup-close-button" onclick="closePopup()">&times;</button>
+
+            <!-- Question 1 -->
+            <div class="popup-section" id="question-1">
+                <p> Question 1: How often do you feel stressed?</p>
+                <br><br><br>
+
+
+                <label><input type="radio" name="q1" value="1" onclick="enableNext('next-1')"> Rarely</label><br>
+                <label><input type="radio" name="q1" value="2" onclick="enableNext('next-1')"> Sometimes</label><br>
+                <label><input type="radio" name="q1" value="3" onclick="enableNext('next-1')"> Often</label><br>
+                <label><input type="radio" name="q1" value="4" onclick="enableNext('next-1')"> Always</label><br>
+
+                <button class="btn-next hidden" id="next-1" onclick="showNextQuestion(2,'q1')">Next</button>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="popup-section hidden" id="question-2">
+                <p>Question 2: What is the primary source of your stress?</p><br><br><br>
+                <label><input type="radio" name="q2" value="1" onclick="enableNext('next-2')"> Work</label><br>
+                <label><input type="radio" name="q2" value="2" onclick="enableNext('next-2')"> Family</label><br>
+                <label><input type="radio" name="q2" value="3" onclick="enableNext('next-2')"> Health</label><br>
+                <label><input type="radio" name="q2" value="4" onclick="enableNext('next-2')"> Other</label><br>
+                <button class="btn-next hidden" id="next-2" onclick="showNextQuestion(3,'q2')">Next</button>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="popup-section hidden" id="question-3">
+                <p>Question 3: How do you usually cope with stress?</p><br><br><br>
+                <label><input type="radio" name="q3" value="1" onclick="enableNext('next-3')"> Exercise</label><br>
+                <label><input type="radio" name="q3" value="2" onclick="enableNext('next-3')"> Relaxation</label><br>
+                <label><input type="radio" name="q3" value="3" onclick="enableNext('next-3')"> Talking to
+                    someone</label><br>
+                <label><input type="radio" name="q3" value="4" onclick="enableNext('next-3')"> Other</label><br>
+                <button class="btn-next hidden" id="next-3" onclick="showNextQuestion(4,'q3')">Next</button>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="popup-section hidden" id="question-4">
+                <p>Question 4: How would you rate your current level of stress?</p><br><br><br>
+                <label><input type="radio" name="q4" value="1" onclick="enableNext('next-4')"> Low</label><br>
+                <label><input type="radio" name="q4" value="2" onclick="enableNext('next-4')"> Moderate</label><br>
+                <label><input type="radio" name="q4" value="3" onclick="enableNext('next-4')"> High</label><br>
+                <label><input type="radio" name="q4" value="4" onclick="enableNext('next-4')"> Very High</label><br>
+                <button class="btn-next hidden" id="next-4" onclick="showNextQuestion(5, 'q4')">Next</button>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="popup-section hidden" id="question-5">
+                <p>Question 5: What would help you reduce your stress?</p><br><br><br>
+                <label><input type="radio" name="q5" value="1" onclick="enableNext('submit-5')"> More
+                    exercise</label><br>
+                <label><input type="radio" name="q5" value="2" onclick="enableNext('submit-5')"> Better
+                    sleep</label><br>
+                <label><input type="radio" name="q5" value="3" onclick="enableNext('submit-5')"> Healthier
+                    diet</label><br>
+                <label><input type="radio" name="q5" value="4" onclick="enableNext('submit-5')"> Other</label><br>
+                <button class="btn-next hidden" id="submit-5" onclick="submitAnswers('q5')">Save N Submit</button>
+            </div>
+            <h3>Progress Tracker</h3>
+            <canvas id="lineChart" width="500" height="250"></canvas>
+
+
+            <!-- Pie Chart for Emotion Breakdown -->
+
+
+        </div>
+        <!-- Line Chart for Progress -->
+
+    </div>
+    <div class="stress-matter" style="margin: 20px;">
+        <div class="stress-info" style="line-height: 35px; ">
+
+            <h1 style="font-size: 1.5rem; font-family: Georgia, 'Times New Roman', Times, serif;"
+                id="stress-info header">1. General Information About Stress</h1>
+
+            <ul style="list-style-type: disc;">
+                <li>
+                    <h3>Definition of Stress:</h3>
+                </li>
+
+                <p> Stress is a natural and essential part of life. It's the body's response to challenges or
+                    demands, and it's designed to keep us alert, motivated, and prepared to face or avoid danger.
+                    Essentially, stress is the body’s way of responding to any kind of demand or threat. When you
+                    sense danger—whether it’s real or imagined—your body's defenses kick into high gear in a rapid,
+                    automatic process known as the “fight or flight” response.</p>
+                <p>Stress is the body's natural response to any demand or challenge, whether it’s physical, mental,
+                    or emotional. It's designed to help us cope with these demands by preparing our body to face
+                    them. This response is often referred to as the "fight or flight" response.
+
+                    When we encounter a stressor, our brain perceives it as a threat and triggers the release of
+                    stress hormones like adrenaline and cortisol. These hormones prepare the body for immediate
+                    action by increasing heart rate, sharpening the senses, and boosting energy levels. This
+                    reaction enables us to react swiftly to dangerous situations, an instinct that evolved as a
+                    crucial survival mechanism.</p>
+
+                <p>This response evolved as a survival mechanism, enabling people to react swiftly to
+                    life-threatening situations. When we encounter a stressor, the body’s alarm system goes off,
+                    releasing a flood of stress hormones, including adrenaline and cortisol. These hormones increase
+                    the body’s alertness, muscle preparedness, and energy levels. Heart rate and blood pressure
+                    increase, and the senses become sharper. These physiological changes enhance our ability to
+                    perform well under pressure.</p>
+                <li>
+                    <h3>Puprose of stress:</h3>
+                    <p>The “fight or flight” response is an instinctive, physiological reaction to a perceived
+                        harmful event, attack, or threat to survival. It was first described by Walter Cannon in the
+                        early 20th century. This reaction prepares the body to either confront or flee from the
+                        threat. </p>
+                    <p>While the “fight or flight” response is crucial in dangerous situations, stress in modern
+                        life often stems from non-life-threatening events, such as work pressure, financial worries,
+                        or relationship issues. Unlike our ancestors, we experience prolonged periods of stress,
+                        which can be harmful over time.</p>
+                </li>
+                <li>
+                    <h3>Types of Stress:</h3>
+                    <ol type="i">
+                        <li>
+                            <h5>Acute Stress: </h5>
+                            <p>Acute stress is the immediate reaction to a new challenge or demand. It's the most
+                                common type of stress and usually occurs in response to specific events such as an
+                                argument, a deadline, or a sudden scare. This type of stress is short-term and can
+                                be beneficial in small doses, as it can help you manage situations and overcome
+                                obstacles quickly.</p>
+                        </li>
+                        <li>
+                            <h5>Eustress: </h5>
+                            <p>Eustress is a type of positive stress that can motivate you to grow, learn, and
+                                achieve. It is associated with positive feelings and a sense of fulfillment.
+                                Examples of eustress include starting a new job, planning a wedding, or competing in
+                                a sport. Unlike other types of stress, eustress can enhance your performance and
+                                overall well-being by providing you with the necessary drive and energy to tackle
+                                new challenges.</p>
+                        </li>
+                        <li>
+                            <h5>Chronic Stress:</h5>
+                            <p>Chronic stress is long-term stress that persists over an extended period. It can
+                                result from ongoing situations like a stressful job, financial difficulties, or
+                                relationship problems. Unlike acute stress, which is temporary, chronic stress can
+                                have a significant impact on your health, leading to issues such as anxiety,
+                                depression, high blood pressure, and heart disease. Managing chronic stress often
+                                requires lifestyle changes and, sometimes, professional support.</p>
+                        </li>
+                    </ol>
+                </li>
+                <li>
+                    <h3>Common Causes:</h3>
+                    <ol type="i">
+                        <li>
+                            <h5>Work Pressure:</h5>
+                            <p>Deadlines, high expectations, job insecurity, or conflicts with colleagues can all
+                                contribute to workplace stress.</p>
+                        </li>
+                        <li>
+                            <h5>Personal Relationships:</h5>
+                            <p>Issues with family, friends, or partners can create emotional stress, especially if
+                                communication breaks down or conflicts arise.</p>
+                        </li>
+                        <li>
+                            <h5>financial challenges:</h5>
+                            <p>Worries about money, debt, or the ability to provide for oneself and one’s family can
+                                be significant sources of stress.</p>
+                        </li>
+                        <li>
+                            <h5>Health Concerns:</h5>
+                            <p>Dealing with chronic illnesses, injuries, or concerns about one's own health or the
+                                health of loved ones can lead to persistent stress.
+
+                            </p>
+                        </li>
+                        <li>
+                            <h5>Life Changes:</h5>
+                            <p>Major life events like moving, starting a new job, getting married, or having a child
+                                can be both exciting and stressful.</p>
+                        </li>
+                    </ol>
+                </li>
+            </ul>
+
+            <h1 style="font-size: 1.5rem; font-family: Georgia, 'Times New Roman', Times, serif;"
+                id="stress-info header">2. Effects of Stress</h1>
+            <p>Stress impacts individuals in a multitude of ways, affecting their physical health, mental state, and
+                behavior. Understanding these effects can help identify stress and implement strategies to manage it
+                effectively.</p>
+            <ul style="list-style-type: disc;">
+                <li>
+                    <h3 style="font-family: Georgia, 'Times New Roman', Times, serif;">Physical
+                        Effects:</h3>
+                    <ol type="i">
+                        <li>
+                            <h5>Increased heart rate:</h5>
+                            <p>When you're stressed, your body releases adrenaline, which increases your heart rate.
+                                This prepares your body for a "fight or flight" response by ensuring more blood, and
+                                thus more oxygen, reaches your muscles. While this is helpful in short bursts,
+                                chronic stress can lead to persistent high blood pressure, which is a risk factor
+                                for heart disease and stroke.</p>
+                        </li>
+                        <li>
+                            <h5>Headaches:</h5>
+                            <p>Stress can cause tension headaches or migraines. These headaches are often a result
+                                of muscle tension around the neck, scalp, and shoulders, which can tighten and
+                                create pain. The hormones released during stress can also affect blood vessels in
+                                the brain, leading to headaches.</p>
+                        </li>
+                        <li>
+                            <h5>Fatigue:</h5>
+                            <p>Chronic stress can drain your energy reserves, leading to constant fatigue and
+                                exhaustion. This is because your body is in a state of heightened alertness for
+                                extended periods, which can be physically draining. Additionally, stress can disrupt
+                                sleep patterns, leading to insomnia or restless sleep, exacerbating feelings of
+                                fatigue.</p>
+                        </li>
+                        <li>
+                            <h5>Muscle tension:</h5>
+                            <p>During stressful times, your muscles naturally tense up to protect themselves from
+                                injury. This is part of the body's acute stress response, but when stress becomes
+                                chronic, muscles may remain tense and can lead to musculoskeletal issues, such as
+                                back pain, neck pain, and generalized muscle soreness.</p>
+                        </li>
+
+                    </ol>
+                </li>
+                <li>
+                    <h3 style="font-family: Georgia, 'Times New Roman', Times, serif;">Mental Effects:</h3>
+                    <ol type="i">
+                        <li>
+                            <h5>Anxiety:</h5>
+                            <p>Stress and anxiety are closely linked. When faced with a stressful situation, your body
+                                releases hormones that can heighten your anxiety levels. Chronic stress can lead to
+                                persistent anxiety, which can manifest as constant worry, nervousness, and a feeling of
+                                impending doom. Anxiety can interfere with daily activities and reduce quality of life.
+                            </p>
+                        </li>
+                        <li>
+                            <h5>Depression:</h5>
+                            <p>Long-term stress can lead to depression, characterized by feelings of sadness,
+                                hopelessness, and a lack of interest in activities once enjoyed. The continuous release
+                                of stress hormones can alter brain function, affecting mood and behavior. Depression
+                                associated with chronic stress can lead to severe emotional and physical health problems
+                                if not addressed.
+                            </p>
+                        </li>
+                        <li>
+                            <h5>Difficulty concentrating:</h5>
+                            <p>Stress can impair your cognitive functions, making it hard to focus, think clearly, and
+                                make decisions. This cognitive load can slow down your thought processes, reduce your
+                                ability to solve problems, and impact your memory. This can be particularly problematic
+                                in work or academic settings where concentration is crucial.
+                        </li>
+                    </ol>
+                </li>
+                <li>
+                    <h3 style="font-family: Georgia, 'Times New Roman', Times, serif;">Behavioral Effects:</h3>
+                    <ol type="i">
+                        <li>
+                            <h5>Overeating:</h5>
+                            <p>Stress can lead to emotional eating, where individuals consume more food than usual,
+                                particularly comfort foods high in sugar and fat. This can be a coping mechanism to deal
+                                with stress but can lead to unhealthy weight gain and associated health problems like
+                                obesity, diabetes, and heart disease.</p>
+                        </li>
+                        <li>
+                            <h5>Smoking:</h5>
+                            <p>Many people turn to smoking as a way to cope with stress. While nicotine can provide a
+                                temporary sense of relaxation, it also increases heart rate and blood pressure,
+                                compounding the physical stress response. Long-term smoking leads to numerous health
+                                issues, including respiratory diseases, cardiovascular problems, and cancer.</p>
+                        </li>
+                        <li>
+                            <h5>Substance abuse:</h5>
+                            <p>Stress can lead individuals to abuse alcohol or drugs as a way to escape their problems
+                                temporarily. Substance abuse can lead to addiction, which further exacerbates stress and
+                                introduces additional health problems, social issues, and financial difficulties.</p>
+                        </li>
+                        <li>
+                            <h5>Social withdrawal:</h5>
+                            <p>Under stress, some people may withdraw from social interactions, isolating themselves
+                                from friends, family, and social activities. This isolation can lead to feelings of
+                                loneliness and exacerbate mental health issues like depression and anxiety. Maintaining
+                                social connections is crucial for emotional support and stress relief.</p>
+                        </li>
+                    </ol>
+                </li>
+            </ul>
+
+            <h1 style="font-size: 1.5rem; font-family: Georgia, 'Times New Roman', Times, serif;"
+                id="stress-info header">3. Self-Assessment Checklist</h1>
+            <div style="display: flex; justify-content: center;">
+                <table>
+                    <tr>
+                        <th>Category</th>
+                        <th>Target</th>
+                        <th>Symptoms</th>
+                    </tr>
+                    <tr>
+                        <td>Physical Symptoms</td>
+                        <td>
+                            <ul>
+                                <li>Headaches:</li>
+                                <li>Muscle Tension:</li>
+                                <li>Fatigue:</li>
+                                <li>Upset Stomach:</li>
+                                <li>Rapid Heartbeat:</li>
+                                <li>Sweating:</li>
+                                <li>Sleep Disturbances:</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li> Frequent headaches or migraines.</li>
+                                <li> Tense muscles, particularly in the neck, shoulders, or back.</li>
+                                <li> Constant tiredness or low energy.</li>
+                                <li> Nausea, stomach pain, or digestive issues.</li>
+                                <li> Increased heart rate or palpitations.</li>
+                                <li> Excessive sweating, especially in stressful situations.</li>
+                                <li> Difficulty falling asleep, staying asleep,experiencing restless
+                                    sleep.</li>
+                                <li>Appetite Changes: Eating too much or too little.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Emotional Symptoms</td>
+                        <td>
+                            <ul>
+                                <li>Anxiety:</li>
+                                <li>Irritability:</li>
+                                <li>Depression:</li>
+                                <li>Mood Swings:</li>
+                                <li>Overwhelm:</li>
+                                <li>Forgetfulness:</li>
+
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li> Feeling anxious, worried, or nervous.</li>
+                                <li> Easily irritated or angered.</li>
+                                <li> Feeling sad, hopeless, or helpless.</li>
+                                <li> Frequent changes in mood.</li>
+                                <li> Feeling overwhelmed or out of control.</li>
+                                <li> Trouble concentrating or remembering things.</li>
+                            </ul>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>Cognitive Symptoms</td>
+                        <td>
+                            <ul>
+                                <li>Racing Thoughts:</li>
+                                <li>Inability to Focus:</li>
+                                <li>Negativity:</li>
+
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li> Rapid or jumbled thoughts.</li>
+                                <li> Difficulty focusing on tasks or making decisions.</li>
+                                <li> Persistent negative thoughts or feelings.</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+            <p">If you identify with several of these symptoms, consider speaking to a healthcare provider for
+                support. Additionally, incorporating stress-relief techniques such as regular exercise, mindfulness
+                practices, and ensuring adequate sleep can help manage stress.</p>
+
+                <h1 style="font-size: 1.5rem; font-family: Georgia, 'Times New Roman', Times, serif;"
+                    id="stress-info header">4. Stress Management Tips</h1>
+                <ul style="list-style-type: disc;">
+                    <li>
+                        <h3 style="font-family: Georgia, 'Times New Roman', Times, serif;">Daily Practices:</h3>
+                        <ol type="i">
+                            <li>
+                                <h5>Breathing exercises.</h5>
+                                <p>Breathing exercises are a simple yet effective way to manage stress. By focusing on
+                                    your breath, you can calm your mind and reduce tension in your body. One common
+                                    technique is deep breathing, where you inhale deeply through your nose, hold for a
+                                    few seconds, and then exhale slowly through your mouth. This practice helps lower
+                                    heart rate, reduce blood pressure, and create a sense of calm. Integrating breathing
+                                    exercises into your daily routine can help you manage stress more effectively.</p>
+                            </li>
+                            <li>
+                                <h5>Journaling.</h5>
+                                <p>Writing down your thoughts and feelings can be a therapeutic way to process stress.
+                                    Journaling allows you to express emotions, reflect on your day, and identify
+                                    patterns in your stressors. This practice can also help you prioritize problems and
+                                    track your progress in managing stress. It serves as a safe space to vent
+                                    frustrations and gain clarity on issues, ultimately providing relief and insight.
+                                </p>
+                            </li>
+
+                        </ol>
+                    </li>
+                    <li>
+                        <h3 style="font-family: Georgia, 'Times New Roman', Times, serif;">Lifestyle Changes:</h3>
+                        <ol type="i">
+                            <li>
+                                <h5>Regular physical activity.</h5>
+                                <p>Exercise is one of the most effective ways to combat stress. Physical activity helps
+                                    release endorphins, the body's natural stress-relievers, which improve mood and
+                                    reduce anxiety. Regular exercise also improves sleep quality, increases energy
+                                    levels, and enhances overall well-being. Whether it's a brisk walk, yoga, or a
+                                    workout at the gym, incorporating physical activity into your routine can
+                                    significantly lower stress levels.</p>
+                            </li>
+                            <li>
+                                <h5>Eating a balanced diet.</h5>
+                                <p>Nutrition plays a crucial role in managing stress. A balanced diet rich in fruits,
+                                    vegetables, lean proteins, and whole grains can improve your physical and mental
+                                    health. Avoiding excessive caffeine and sugar can help prevent mood swings and
+                                    irritability. Staying hydrated and eating regular, well-balanced meals can stabilize
+                                    blood sugar levels and provide the necessary nutrients to cope with stress more
+                                    effectively.</p>
+                            </li>
+                            <li>
+                                <h5>Practicing mindfulness and meditation.</h5>
+                                <p>Mindfulness and meditation involve focusing on the present moment without judgment.
+                                    These practices can help reduce stress by calming the mind and increasing
+                                    self-awareness. Techniques such as guided meditation, progressive muscle relaxation,
+                                    and mindful breathing can help you detach from stressors and develop a more balanced
+                                    perspective. Regular practice can enhance your ability to manage stress and improve
+                                    overall mental health.</p>
+                            </li>
+                        </ol>
+                    </li>
+                    <li>
+                        <h3 style="font-family: Georgia, 'Times New Roman', Times, serif;">Professional Help:</h3>
+                        <p>Sometimes, managing stress on your own can be challenging, and professional help is
+                            necessary. Therapy or counseling can provide you with tools and strategies to cope with
+                            stress effectively. A mental health professional can help you identify the root causes of
+                            your stress, develop coping mechanisms, and offer support through challenging times. It's
+                            important to seek help if you experience prolonged stress that interferes with your daily
+                            life, such as persistent anxiety, depression, or physical health issues. Professional
+                            guidance can lead to significant improvements in mental health and overall well-being.</p>
+                    </li>
+                </ul>
+        </div>
+
+
+
+    </div>
+
+    <div class="chatbot" id="chatbot">
+        <div class="chatbot-header">
+            <span>Chat with us</span>
+            <button onclick="toggleChatbot()">Close</button>
+        </div>
+        <div class="chatbot-body" id="chatbot-body">
+            <p class="chatbot-message">Hello! How can I assist you today?</p>
+        </div>
+        <div class="chatbot-footer">
+            <input type="text" id="user-message" placeholder="Type your message..."
+                onkeydown="if(event.key === 'Enter') sendMessage()">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <main style=" padding: 20px;">
+        <div class="quiz-container" style="  display: flex;
+        justify-content: center;
+        gap: 20px;">
+
+            <div class="quiz-card" id="stress-card">
+                <h2>4-7-8 Breathing Timer</h2>
+                <p>Discover your stress score and give 19 seconds of boost to your lifeline</p>
+            </div>
+
+            <!-- Stress Popup -->
+            <div id="stress-popup" class="stress-popup">
+                <div class="stress-popup-content">
+                    <h2>Guided Breathing Activity</h2><br><br>
+
+                    <!-- Breathing Exercise Section -->
+                    <div class="breathing-timer">
+                        <div class="circle-container">
+                            <div class="circle">
+                                <div class="progress-bar"></div> <!-- Circular progress bar -->
+                            </div>
+                            <div class="countdown-container">
+                                <span class="countdown">4</span> <!-- Countdown number will be here -->
+                            </div>
+                        </div>
+                        <p class="prompt">Inhale</p>
+                    </div>
+
+                    <button id="stress-close-popup">Close</button>
+                </div>
+            </div>
+
+
+
+            <!-- 
+            <div class="quiz-card">
+                <h2>Work-Life Balance Quiz</h2>
+                <p>Evaluate your personal and professional balance.</p>
+            </div>
+
+
+            <div class="quiz-card">
+                <h2>Sleep Quality & Mental Health Check</h2>
+                <p>Understand how your sleep affects your mental health.</p>
+            </div>
+
+
+            <div class="quiz-card">
+                <h2>Gratitude and Positivity Tracker</h2>
+                <p>Adopt a gratitude-based mindset to enhance well-being.</p>
+            </div> -->
+
+        </div>
+    </main>
+
+
+    <div id="weather-widget">
+        <p id="weather-text">Fetching your location...</p>
+    </div>
+
+    <div id="mood-modal" class="modal">
+
+        <div class="modal-content"> <span class="close-btn" onclick="closeMoodModal()">×</span>
+            <h2>How are you feeling today?</h2>
+            <div class="modal-main">
+                <textarea id="user-mood-input" placeholder="Type your mood here..."></textarea> <button
+                    onclick="submitMood()" class="submit-mood">Submit</button> <!-- New sections -->
+            </div>
+            <div class="mood-details">
+              
+                <div class="mood-graph">
+                    <h3>Your Mood Graph</h3>
+                    <canvas id="mood-graph-canvas"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+        // Function to open the popup
+        // Function to open the popup
+        // Show the quiz popup
+        function openPopup() {
+            console.log('Opening popup');
+            document.getElementById('popup-overlay').style.display = 'flex';
+            fetchDataAndUpdateChart();
+        }
+
+        // Hide the quiz popup
+        function closePopup() {
+            console.log('Closing popup');
+            document.getElementById('popup-overlay').style.display = 'none';
+        }
+
+        // Enable the "Next" button when an option is selected
+        function enableNext(buttonId) {
+
+            const selectedOption = document.querySelector('input[name="q5"]:checked');
+
+            console.log(`Enabling next button: ${buttonId}`);
+            document.getElementById(buttonId).classList.remove('hidden');
+
+            if (selectedOption) {
+                document.getElementById("submit-5").classList.remove('hidden');
+            } else {
+                document.getElementById("submit-5").classList.add('hidden');
+            }
+        }
+
+        // Show the next question and save the user's current answer
+        function showNextQuestion(nextQuestionId, question) {
+            console.log(`Showing next question: ${nextQuestionId} for question: ${question}`);
+            const selectedOption = document.querySelector(`input[name="${question}"]:checked`);
+            if (selectedOption) {
+                console.log(`Selected option: ${selectedOption.value}`);
+                saveAnswer(question, selectedOption.value, nextQuestionId - 1); // Save current answer and order
+                document.getElementById('question-' + (nextQuestionId - 1)).classList.add('hidden');
+                document.getElementById('question-' + nextQuestionId).classList.remove('hidden');
+            } else {
+                alert('Please select an answer before proceeding.');
+            }
+        }
+
+        // Save the user's answer for the question
+
+
+        // Function to save the answer and submit the data
+        function saveAnswer(questionNumber, answer) {
+            console.log('Saving answer:', questionNumber, answer); // Log the question number and answer
+            const token = localStorage.getItem('token'); // Assuming JWT is stored in localStorage
+
+            fetch('http://localhost:5000/save-answer', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` // Pass the token in the header
+                },
+                body: JSON.stringify({
+                    question_number: questionNumber,
+                    answer: answer
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Server Response:', data.message);
+                    // After saving, calculate aggregate score and show recommended content
+
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        // Function to calculate the aggregate score and fetch recommended content
+
+
+
+        // Function to display recommended content based on the aggregate score
+
+
+        // Final submission of answers (triggering the calculation of aggregate score)
+        function submitAnswers() {
+            const token = localStorage.getItem('token'); // Assuming JWT is stored in localStorage
+
+            // Check if the answer for question 5 is saved
+            const selectedOption = document.querySelector('input[name="q5"]:checked');
+            if (selectedOption) {
+                saveAnswer('q5', selectedOption.value); // Save answer for question 5 before submission
+            }
+
+            const answers = {};
+            for (let i = 1; i <= 5; i++) {
+                const selectedOption = document.querySelector(`input[name="q${i}"]:checked`);
+                if (selectedOption) {
+                    answers[`q${i}`] = selectedOption.value;
+                }
+            }
+            fetch('http://localhost:5000/submit-quiz', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` // Send the token in the header
+                },
+                body: JSON.stringify({ answers }) // Send the answers in the request body
+            }).then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+                .then(data => {
+                    alert('Your answers have been submitted. Thank you!');
+                    // Optionally, you can update the UI to show the result or redirect the user
+                })
+                .catch(error => {
+                    console.error('Error during submission:', error);
+                    alert('There was an error submitting your answers: ' + error.message);
+                })
+
+        }
+
+        let lineChart;
+
+        // Fetch data for the Progress Tracker and update the chart
+        function fetchDataAndUpdateChart() {
+            const token = localStorage.getItem('token');
+
+            fetch('http://localhost:5000/get-scores', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data && data.length > 0) {
+                        const labels = data.map(item => new Date(item.created_at).toLocaleDateString());
+                        const scores = data.map(item => item.aggregate_score);
+
+                        // Calculate trendline
+                        function calculateTrendline(scores) {
+                            let x = scores.map((_, i) => i);
+                            let y = scores;
+                            let n = x.length;
+                            let sumX = x.reduce((a, b) => a + b, 0);
+                            let sumY = y.reduce((a, b) => a + b, 0);
+                            let sumXY = x.reduce((sum, xi, i) => sum + xi * y[i], 0);
+                            let sumX2 = x.reduce((sum, xi) => sum + xi * xi, 0);
+                            let slope = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
+                            let intercept = (sumY - slope * sumX) / n;
+                            return x.map(xi => slope * xi + intercept);
+                        }
+
+                        const trendlineData = calculateTrendline(scores);
+                        const averageScore = scores.reduce((sum, score) => sum + score, 0) / scores.length;
+                        const averageData = Array(scores.length).fill(averageScore);
+
+                        const ctx = document.getElementById('lineChart').getContext('2d');
+
+                        if (lineChart) lineChart.destroy();
+
+                        lineChart = new Chart(ctx, {
+                            type: 'line',
+                            data: {
+                                labels: labels,
+                                datasets: [
+                                    { label: 'Mental Well-being Progress', data: scores, borderColor: 'blue' },
+                                    { label: 'Trendline', data: trendlineData, borderColor: 'red', borderDash: [5, 5] },
+                                    { label: 'Average Score', data: averageData, borderColor: 'purple', borderDash: [5, 5] }
+                                ]
+                            },
+                            options: {
+                                responsive: true,
+                                scales: {
+                                    y: { min: 0, max: 25 }
+                                }
+                            }
+                        });
+                    } else {
+                        console.error('No data found to render the chart');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching scores:', error);
+                });
+        }
+
+        // Update the chart after submission
+        function updateChartAfterSubmit() {
+            fetchDataAndUpdateChart();
+        }
+
+        // Periodically update the chart every 10 seconds
+        setInterval(fetchDataAndUpdateChart, 10000);
+
+        // home.js
+        window.addEventListener('DOMContentLoaded', function () {
+            const token = localStorage.getItem('token');
+
+            if (!token) {
+                window.location.href = 'userlogin.html';
+            } else {
+                fetch('http://localhost:5000/verify-token', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.message !== 'Token is valid') {
+                            localStorage.removeItem('token');
+                            window.location.href = 'userlogin.html';
+                        }
+                    })
+                    .catch(() => {
+                        localStorage.removeItem('token');
+                        window.location.href = 'userlogin.html';
+                    });
+            }
+        });
+
+
+
+        // home.js
+        window.addEventListener('DOMContentLoaded', function () {
+            const token = localStorage.getItem('token');
+
+            if (!token) {
+                window.location.href = 'userlogin.html'; // Redirect to login page if no token found
+            } else {
+                // Optionally, you can verify the token with the backend for validity
+                fetch('http://localhost:5000/verify-token', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}` // Send token in Authorization header
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.message === 'Token is valid') {
+                            // Show a success message if the token is valid
+                            const successMessage = document.createElement('div');
+                            successMessage.textContent = 'Welcome Pal';
+                            successMessage.style.padding = '10px';
+                            successMessage.style.backgroundColor = 'green';
+                            successMessage.style.color = 'white';
+                            successMessage.style.textAlign = 'center';
+                            successMessage.style.marginTop = '20px';
+                            document.body.prepend(successMessage); // Insert the success message at the top
+                        } else {
+                            // If token is invalid or expired, remove token and redirect
+                            localStorage.removeItem('token');
+                            window.location.href = 'userlogin.html'; // Redirect to login page
+                        }
+                    })
+                    .catch(() => {
+                        // Handle any errors (e.g., network issues)
+                        localStorage.removeItem('token');
+                        window.location.href = 'userlogin.html'; // Redirect to login page if verification fails
+                    });
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="chatbot.js"></script>
+    <script src="mood.js"></script>
+    <script src="breathing.js"></script>
+    <script src="home.js"></script>
+</body>
+
+</html>

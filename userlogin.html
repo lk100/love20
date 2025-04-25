@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up & Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f8ff;
+            /* Light blue background */
+            animation: fadeIn 1s ease-in;
+            /* Fade-in animation for the background */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .container {
+            text-align: center;
+            animation: slideIn 0.5s ease-out;
+            /* Slide-in animation for the buttons */
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        button {
+            padding: 12px 24px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #007acc;
+            /* Strong blue */
+            color: white;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        button:hover {
+            background-color: #005b99;
+            /* Darker blue on hover */
+            transform: scale(1.05);
+            /* Slightly increase size on hover */
+        }
+
+        #formContainer {
+            width: 500px;
+            /* Set a fixed width for the square container */
+            padding: 50px;
+            background-color: #e0f7ff;
+            /* Very light blue */
+            border: 2px solid #007acc;
+            /* Strong blue border */
+            border-radius: 100px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            /* Slight shadow */
+            animation: fadeInForm 0.5s ease-in-out;
+            /* Fade-in animation for the forms */
+            display: none;
+            /* Initially hidden */
+            text-align: left;
+        }
+
+        @keyframes fadeInForm {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5px;
+        }
+
+        h2 {
+            color: #007acc;
+            /* Strong blue for headings */
+            font-size: 24px;
+            text-align: center;
+        }
+
+        label {
+            color: #333;
+        }
+
+        input,
+        select {
+            padding: 10px;
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid #b0e0e6;
+            /* Pale turquoise border */
+            border-radius: 100px;
+        }
+
+        button[type="submit"] {
+            background-color: #007acc;
+            /* Strong blue */
+            margin-top: 15px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #005b99;
+            /* Darker blue on hover */
+            transform: scale(1.05);
+            /* Slightly increase size on hover */
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <button id="signupBtn">Sign Up</button>
+        <button id="loginBtn">Login</button>
+    </div>
+
+    <div id="formContainer"></div>
+    <script>
+        document.getElementById('signupBtn').addEventListener('click', function () {
+            displayForm('signup');
+            hideButtons();
+        });
+
+        document.getElementById('loginBtn').addEventListener('click', function () {
+            displayForm('login');
+            hideButtons();
+        });
+
+        function displayForm(type) {
+            let formContainer = document.getElementById('formContainer');
+            formContainer.style.display = 'block'; // Show the form container
+            if (type === 'signup') {
+                formContainer.innerHTML = `
+                    <form id="signupForm">
+                        <h2>Sign Up</h2>
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" name="username" required><br><br>
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required><br><br>
+                        <label for="personality">What Defines you most:</label>
+                        <select id="personality" name="personality" required>
+                            <option value="ambivert">Ambivert</option>
+                            <option value="introvert">Introvert</option>
+                            <option value="extrovert">Extrovert</option>
+                            <option value="jolly">Jolly</option>
+                            <option value="ambitious">Ambitious</option>
+                            <option value="fearless">Fearless</option>
+                            <option value="overthinker">Overthinker</option>
+                        </select><br><br>
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" required><br><br>
+                        <label for="confirmPassword">Confirm Password:</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" required><br><br>
+                        <button type="submit">Sign Up</button>
+                    </form>
+                `;
+                document.getElementById('signupForm').addEventListener('submit', function (event) {
+                    event.preventDefault(); // Prevent form submission from reloading the page
+                    const data = {
+                        username: document.getElementById('username').value,
+                        email: document.getElementById('email').value,
+                        personality: document.getElementById('personality').value,
+                        password: document.getElementById('password').value
+                    };
+
+                    fetch('http://localhost:5000/signup', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.message === 'User created successfully') {
+                                window.location.href = 'home.html'; // Redirect to homepage after signup
+                            } else {
+                                alert('Error: ' + data.message);
+                            }
+                        })
+                        .catch(error => console.error('Error:', error));
+                });
+            } else if (type === 'login') {
+                formContainer.innerHTML = `
+                    <form id="loginForm">
+                        <h2>Login</h2>
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" name="username" required><br><br>
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" required><br><br>
+                        <button type="submit">Login</button>
+                    </form>
+                `;
+                document.getElementById('loginForm').addEventListener('submit', function (event) {
+                    event.preventDefault(); // Prevent form submission from reloading the page
+                    const data = {
+                        username: document.getElementById('username').value,
+                        password: document.getElementById('password').value
+                    };
+
+                    fetch('http://localhost:5000/login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.token) {
+                                // Save the JWT token and name to localStorage
+                                localStorage.setItem('token', data.token);
+                                localStorage.setItem('userName', data.name); // Save the user's name
+                                window.location.href = 'home.html'; // Redirect to homepage after login
+                            } else {
+                                alert('Error: ' + data.message);
+                            }
+                        })
+                        .catch(error => console.error('Error:', error));
+                });
+            }
+        }
+
+        function hideButtons() {
+            document.getElementById('signupBtn').style.display = 'none';
+            document.getElementById('loginBtn').style.display = 'none';
+        }
+
+    </script>
+</body>
+
+</html>

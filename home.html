@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindBliss</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <div id="wrapper">
+        <nav class="navbar">
+            <div class="navbar-brand">MindBliss</div>
+            <form class="search-form">
+                <input type="text" placeholder=" " class="search-input" onclick="toggleChatbot()">
+                <img class="search-icon" src="search.svg" alt="Search">
+            </form>
+            <ul class="navbar-links">
+                <li><button onclick="openMoodModal()">Mood</button></li>
+            </ul>
+            <ul class="navbar-links">
+                <li><button onclick="openChatModal()">Chat</button></li>
+            </ul>
+            <ul class="navbar-links">
+                <li> <button onclick="openFriendRequestModal()">Requests</button></li>
+            </ul>
+            <ul class="navbar-links">
+                <li id="logoutBtn"> <i class='bx bx-log-out-circle'></i></li>
+            </ul>
+        </nav>
+
+        <!-- Mood Modal -->
+
+
+        <!-- Chatbot -->
+        <div class="chatbot" id="chatbot">
+            <div class="chatbot-header">
+                <span>Chat with us</span>
+                <button onclick="toggleChatbot()">Close</button>
+            </div>
+            <div class="chatbot-body" id="chatbot-body">
+                <p class="chatbot-message">Hello! How can I assist you today?</p>
+            </div>
+            <div class="chatbot-footer">
+                <input type="text" id="user-message" placeholder="Type your message..."
+                    onkeydown="if(event.key === 'Enter') sendMessage1()">
+                <button onclick="sendMessage1()" class="chat-send-btn">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+
+            </div>
+        </div>
+        <div class="background-container">
+
+        </div>
+
+        <!-- Features Section -->
+        <main>
+            <div class="test-container">
+                <a href="stress.html">
+                    <div class="test-card">
+                        <a href="Stress.html">
+
+                            <h2>Stress and Coping Style Assessment</h2>
+                            <p>Discover your stress levels and how you manage them.</p>
+                        </a>
+                    </div>
+                </a>
+                <a href="Worklife.html">
+
+                    <div class="test-card">
+                        <a href="Worklife.html">
+
+                            <h2>Work-Life Balance Quiz</h2>
+                            <p>Evaluate your personal and professional balance.</p>
+                        </a>
+                    </div>
+                </a>
+           
+            </div>
+        </main>
+
+
+
+        <!-- Featured Blogs Section -->
+        <div class="blogs">
+            <h2>Featured Blogs</h2>
+            <p>Unraveling thoughts: a journey to mental wellness</p>
+            <div class="loader" style="display: none;">
+                <p>Loading articles...</p>
+            </div>
+            <div class="fe-blog">
+                <!-- Blogs will be displayed here -->
+            </div>
+        </div>
+
+        <!-- Weather Widget Section -->
+        <div id="weather-widget">
+            <p id="weather-text">Fetching your location...</p>
+        </div>
+    </div>
+
+    <div style="text-align: center;">
+        <h1 style="margin-top: 20px;">Welcome to Your Mental Health Care Platform</h1>
+    </div>
+    <br>
+    <br>
+    <div class="banner-container">
+        <div id="primaryEmotion" class="banner">
+            <h2>Primary Emotion Content</h2>
+            <!-- Content for most frequent emotion will be loaded here -->
+        </div>
+        <div id="secondaryEmotion" class="banner">
+            <h2>Secondary Emotion Content</h2>
+            <!-- Content for last predicted emotion will be loaded here -->
+        </div>
+    </div>
+
+    <div id="mood-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeMoodModal()">×</span>
+            <h2>How are you feeling today?</h2>
+            <div class="modal-main">
+                <textarea id="user-mood-input" placeholder="Type your mood here..."></textarea>
+                <button onclick="submitMood()" class="submit-mood">Submit</button>
+            </div>
+            <div class="mood-details">
+                <div class="mood-history">
+                    <h3>Your Mood Graph</h3>
+
+                    <!-- Buttons -->
+                    <button id="date-emotion-btn"
+                        style="background-color: #008CBA; color: white; padding: 12px 24px; font-size: 16px; margin: 8px; border: none; cursor: pointer; border-radius: 25px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); transition: all 0.3s ease;">Date
+                        vs Emotion</button>
+                    <button id="pie-chart-btn"
+                        style="background-color: #f44336; color: white; padding: 12px 24px; font-size: 16px; margin: 8px; border: none; cursor: pointer; border-radius: 25px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); transition: all 0.3s ease;">Pie
+                        Chart</button>
+                    <button id="myjournal-btn"
+                        style="background-color: #94b21b; color: white; padding: 12px 24px; font-size: 16px; margin: 8px; border: none; cursor: pointer; border-radius: 25px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); transition: all 0.3s ease;">My
+                        Journal</button>
+                    <button id="mystory-btn"
+                        style="background-color: #252c09; color: white; padding: 12px 24px; font-size: 16px; margin: 8px; border: none; cursor: pointer; border-radius: 25px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); transition: all 0.3s ease;">
+                        My Story
+                    </button>
+
+                    <!-- Story Content (Initially Hidden) -->
+                    <div id="story-content"
+                        style="display: none; padding: 10px; background-color: #f9f9f9; border-radius: 10px;">
+                        <h3>📜 Quotes</h3>
+                        <ul id="quotes-list"></ul>
+
+                        <h3>🧘 Affirmations</h3>
+                        <ul id="affirmations-list"></ul>
+
+                        <h3>📖 Stories</h3>
+                        <ul id="stories-list"></ul>
+                    </div>
+
+
+                    <!-- Canvas Elements -->
+                    <div id="mood-graph-canvas-container">
+                        <canvas id="mood-graph-canvas" width="800" height="600"></canvas>
+                        <canvas id="mood-pie-canvas" width="400" height="400" style="display: none;"></canvas>
+                    </div>
+                </div>
+
+                <!-- Journal Entries Container -->
+                <div id="journal-entries-container" style="display: none;">
+                    <div id="journal-entries-nav">
+                        <button id="left-arrow" style="float: left;">←</button>
+                        <button id="right-arrow" style="float: right;">→</button>
+                    </div>
+                    <div id="journal-entries"></div>
+                </div>
+
+                <!-- Pet Panel (Hidden Initially) -->
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <div id="chat-modal" class="chat-modal">
+        <div class="chat-modal-content">
+            <span class="close-btn" onclick="closeChatModal()">×</span>
+
+
+            <div class="chat-container">
+                <!-- Left Panel (Friends List) -->
+                <div class="chat-section chat-left">
+                    <h3 style="align-self: center;">Friends</h3>
+                    <div class="chat-friends-list"></div>
+                </div>
+
+                <!-- Center Panel (Active Chats + Chat Box) -->
+                <div class="chat-section chat-center">
+                    <div class="chat-active-chats">
+                        <h3>Active Conversations</h3>
+                        <div class="chat-tabs"></div>
+                    </div>
+                    <div class="chat-box">
+
+                    </div>
+                    <div class="chat-input-container">
+                        <textarea class="chat-message-input" placeholder="Type your message here..."></textarea>
+                        <button onclick="sendMessage()" class="chat-send-btn"><i class='bx bxs-send'></i></button>
+                    </div>
+                </div>
+
+                <!-- Right Panel (Recommended Users) -->
+                <!-- Right Panel (Recommended Users) -->
+                <div class="chat-section chat-right">
+                    <h3 style="align-self: center;">Get a Companion:</h3>
+
+                    <!-- Complement & Supplement Buttons -->
+                    <div class="chat-connection-type">
+                        <button class="chat-option-btn"
+                            onclick="fetchRecommendedUsers('complement')">Complement</button>
+                        <button class="chat-option-btn"
+                            onclick="fetchRecommendedUsers('supplement')">Supplement</button>
+                    </div>
+
+                    <div class="chat-users-list">
+                        <div class="recommendation-box"></div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div id="friendRequestsModal" class="friend-request-modal" style="display: none;">
+        <div class="friend-modal-content">
+            <span class="close-btn" onclick="closeFriendRequestModal()">&times;</span>
+            <h2>Pending Friend Requests</h2>
+            <ul id="friendRequestsList" class="friend-requests-list"></ul>
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="notify.js"></script>
+    
+    <script>
+
+        // home.js
+        window.addEventListener('DOMContentLoaded', function () {
+            const token = localStorage.getItem('token');
+            console.log(token); // Check if token is present
+            if (!token) {
+                window.location.href = 'userlogin.html'; // Redirect to login page if no token found
+            } else {
+                // Optionally, you can verify the token with the backend for validity
+                fetch('http://localhost:5000/verify-token', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}` // Send token in Authorization header
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data); // Log the response from the backend
+                        if (data.message === 'Token is valid') {
+                            localStorage.setItem('userId', data.user.userId);
+                            const successMessage = document.createElement('div');
+                            successMessage.textContent = 'Welcome Pal';
+                            successMessage.style.padding = '10px';
+                            successMessage.style.backgroundColor = 'green';
+                            successMessage.style.color = 'white';
+                            successMessage.style.textAlign = 'center';
+
+                            document.body.prepend(successMessage); // Insert the success message at the top
+                        } else {
+                            localStorage.removeItem('token');
+                            window.location.href = 'userlogin.html'; // Redirect to login page if token is invalid
+                        }
+                    })
+                    .catch(() => {
+                        localStorage.removeItem('token');
+                        window.location.href = 'userlogin.html'; // Redirect to login page if verification fails
+                    });
+            }
+
+        });
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Use the existing getUserId function
+            function getUserId() {
+                const userId = localStorage.getItem("userId");
+                if (!userId) {
+                    alert("You must be logged in to perform this action.");
+                    throw new Error("User ID not found in localStorage");
+                }
+                return userId;
+            }
+
+            // Function to fetch the latest emotion from the backend
+            async function fetchUserEmotion(userId) {
+                try {
+                    const response = await fetch(`http://localhost:5000/get-latest-emotion?user_id=${userId}`);
+                    const data = await response.json();
+                    return data.emotion; // Assuming the backend returns { "emotion": "happy" }
+                } catch (error) {
+                    console.error('Error fetching user emotion:', error);
+                    return null;
+                }
+            }
+
+            // Function to fetch the most frequent emotion from the backend
+            async function fetchMostFrequentEmotion(userId) {
+                try {
+                    const response = await fetch(`http://localhost:5000/get-latest-emotion?user_id=${userId}`);
+                    const data = await response.json();
+                    return data.emotion; // Assuming the backend returns { "emotion": "anxious" }
+                } catch (error) {
+                    console.error('Error fetching most frequent emotion:', error);
+                    return null;
+                }
+            }
+
+            // Function to get access token using client credentials flow
+            async function getAccessToken() {
+                const clientId = 'f0a669109bf446e8840ecaa2242f06df'; 
+                const clientSecret = '0ccc1912ca5c40c1bc4c1a328f9f2966'; 
+                const credentials = btoa(`${clientId}:${clientSecret}`);
+
+                const response = await fetch('https://accounts.spotify.com/api/token', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'Authorization': `Basic ${credentials}`
+                    },
+                    body: 'grant_type=client_credentials'
+                });
+
+                const data = await response.json();
+                return data.access_token;
+            }
+
+            // Function to fetch playlists related to the emotion using Spotify API
+            async function fetchPlaylistsRelatedToEmotion(emotion) {
+                const accessToken = await getAccessToken();
+                const endpoint = `https://api.spotify.com/v1/search?q=${emotion}&type=playlist&limit=5`;
+                
+                try {
+                    const response = await fetch(endpoint, {
+                        headers: {
+                            'Authorization': `Bearer ${accessToken}`
+                        }
+                    });
+                    const data = await response.json();
+                    return data.playlists.items; // Assuming the API returns an array of playlists
+                } catch (error) {
+                    console.error('Error fetching playlists related to emotion:', error);
+                    return null;
+                }
+            }
+
+            // Function to display content based on emotion
+            // Function to display content based on emotion
+            function displayEmotionContent(content, elementId) {
+                const emotionDiv = document.getElementById(elementId);
+                if (!content || content.length === 0) {
+                    emotionDiv.innerHTML = '<p>Unable to retrieve content. Please try again later.</p>';
+                    return;
+                }
+
+                let contentHtml = '';
+                content.forEach(item => {
+                    if (item && item.images && item.images.length > 0) { // Check if item and images array exist
+                        console.log('Item:', item); // Log the entire item object
+                        const imageUrl = item.images[0].url;
+                        contentHtml += `
+                <div class="content-item">
+                    <img src="${imageUrl}" alt="${item.name} Cover Image" style="width: 100px; height: 100px; margin-right: 15px;">
+                    <div>
+                        <h3>${item.name}</h3>
+                        <a href="${item.external_urls.spotify}" target="_blank">Listen on Spotify</a>
+                    </div>
+                </div>
+            `;
+                    } else {
+                        console.warn('Invalid item or item does not have images:', item); // Log a warning if item is invalid
+                    }
+                });
+                emotionDiv.innerHTML = contentHtml;
+            }
+
+
+            // Fetch the user ID and then the emotions
+            try {
+                const userId = getUserId();
+
+                // Fetch and display most frequent emotion content
+                fetchMostFrequentEmotion(userId).then(async (emotion) => {
+                    if (emotion) {
+                        const content = await fetchPlaylistsRelatedToEmotion(emotion);
+                        displayEmotionContent(content, 'primaryEmotion');
+                    }
+                });
+
+                // Fetch and display last predicted emotion content
+                fetchUserEmotion(userId).then(async (emotion) => {
+                    if (emotion) {
+                        const content = await fetchPlaylistsRelatedToEmotion(emotion);
+                        displayEmotionContent(content, 'secondaryEmotion');
+                    }
+                });
+
+            } catch (error) {
+                console.error(error.message);
+            }
+        }); document.getElementById("logoutBtn").addEventListener("click", () => {
+      
+            fetch("http://localhost:5000/logout", {
+                method: "POST",
+                headers: { "Authorization": "Bearer " + localStorage.getItem("token") }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message === "Logged out successfully") {
+                        localStorage.removeItem("token"); // Remove JWT from local storage
+                        alert("Logged out successfully!");
+                        window.location.href = "/userlogin.html"; // Redirect to login page
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        });
+
+    </script>
+
+
+
+    <!-- External JS Scripts -->
+    <script src="home.js"></script>
+    <script src="chatbot.js"></script>
+    <script src="mood.js"></script>
+    <script src="chat.js"></script>
+
+</body>
+
+</html>
