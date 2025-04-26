@@ -17,7 +17,7 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = 5000;
-
+app.use(express.static(path.join(__dirname))); 
 app.use(express.json());
 app.use(cors());
 // Use session middleware
@@ -73,7 +73,9 @@ db.query(
       password VARCHAR(255) NOT NULL
   )`
 );
-
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'home.html'));  // Assuming index.html is in the root
+});
 // Routes
 app.post("/signup", (req, res) => {
   const { username, email, personality, password } = req.body;
