@@ -32,5 +32,6 @@
     "node-fetch": "^2.7.0",
     "python-shell": "^5.0.0",
     "sequelize": "^6.37.5"
+    
   }
 }
