@@ -355,11 +355,7 @@ exec(`python3 predict.py "${userText.replace(/"/g, '\\"')}"`, (error, stdout, st
       return res.status(500).json({ error: "Invalid prediction output" });
     }
 });
- catch (parseError) {
-      console.error("Failed to parse Python response:", parseError);
-      return res.status(500).json({ error: "Failed to parse response" });
-    }
-  });
+
 });
 app.get("/mood-history/:userId", (req, res) => {
   const userId = req.params.userId;
