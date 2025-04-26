@@ -318,40 +318,44 @@ app.post("/submit-journal", (req, res) => {
   const userText = req.body.text;
   const userId = req.body.user_id;
   console.log("User journal text:", userText);
-  exec(`python predict.py "${userText}"`, (error, stdout, stderr) => {
+exec(`python3 predict.py "${userText.replace(/"/g, '\\"')}"`, (error, stdout, stderr) => {
     if (error) {
       console.error("Error running Python script:", error);
-      return res
-        .status(500)
-        .json({ error: "Failed to process mood prediction" });
+      return res.status(500).json({ error: "Failed to process mood prediction" });
     }
+
     console.log("Python stdout:", stdout);
+
     try {
-      const result = JSON.parse(stdout);
+      const result = JSON.parse(stdout.trim()); // <-- small fix: .trim()
+      
       if (result.error) {
         console.error("Python script error:", result.error);
         return res.status(500).json({ error: "Error predicting emotion" });
       }
+
       const predictedEmotion = result.predicted_emotion;
       console.log("Predicted emotion:", predictedEmotion);
+
       const query = `INSERT INTO moods (user_id, journal_text, predicted_emotion) VALUES (?, ?, ?)`;
-      db.query(
-        query,
-        [userId, userText, predictedEmotion],
-        (dbError, dbResults) => {
-          if (dbError) {
-            console.error("Error saving to database:", dbError);
-            return res.status(500).json({ error: "Database error" });
-          }
-          console.log("Saved to database:", dbResults);
-          return res.status(200).json({
-            success: true,
-            emotion: predictedEmotion,
-            id: dbResults.insertId,
-          });
+      db.query(query, [userId, userText, predictedEmotion], (dbError, dbResults) => {
+        if (dbError) {
+          console.error("Error saving to database:", dbError);
+          return res.status(500).json({ error: "Database error" });
         }
-      );
+        console.log("Saved to database:", dbResults);
+        return res.status(200).json({
+          success: true,
+          emotion: predictedEmotion,
+          id: dbResults.insertId,
+        });
+      });
     } catch (parseError) {
+      console.error("Failed to parse Python output:", parseError);
+      return res.status(500).json({ error: "Invalid prediction output" });
+    }
+});
+ catch (parseError) {
       console.error("Failed to parse Python response:", parseError);
       return res.status(500).json({ error: "Failed to parse response" });
     }
