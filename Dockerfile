@@ -1,7 +1,7 @@
-# Use official Node.js image with Debian (so we can install Python)
+# Use official Node.js image with Debian
 FROM node:18-bullseye-slim
 
-# Set working directory inside container
+# Set working directory
 WORKDIR /app
 
 # Copy package.json and package-lock.json first
@@ -13,14 +13,17 @@ RUN npm install
 # Install Python and pip
 RUN apt-get update && apt-get install -y python3 python3-pip
 
-# Copy everything into the container
+# Fix: Create alias so "python" points to "python3"
+RUN ln -s /usr/bin/python3 /usr/bin/python
+
+# Copy everything else
 COPY . .
 
-# Install Python dependencies
+# Install Python libraries
 RUN pip3 install torch transformers
 
-# Expose the port your Node.js server runs on (e.g., 3000)
+# Expose server port
 EXPOSE 3000
 
-# Start Node.js server
+# Start server
 CMD ["npm", "start"]
