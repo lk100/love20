@@ -17,7 +17,7 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = 5000;
-
+app.use(express.static(path.join(__dirname))); 
 app.use(express.json());
 app.use(cors());
 // Use session middleware
@@ -36,19 +36,20 @@ const GEMINI_API_URL =
 
 // MySQL connection
 const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "123456",
-  database: "homepage",
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
 });
 
 db.connect((err) => {
-  if (err) {
-    console.error("Failed to connect to MySQL", err);
-    return;
-  }
-  console.log("Connected to MySQL");
+    if (err) {
+        console.error('Failed to connect to database:', err);
+    } else {
+        console.log('Connected to MySQL database');
+    }
 });
+
 
 // Create user_answers table if not exists
 db.query(
@@ -72,7 +73,9 @@ db.query(
       password VARCHAR(255) NOT NULL
   )`
 );
-
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'home.html'));  // Assuming index.html is in the root
+});
 // Routes
 app.post("/signup", (req, res) => {
   const { username, email, personality, password } = req.body;
@@ -315,44 +318,44 @@ app.post("/submit-journal", (req, res) => {
   const userText = req.body.text;
   const userId = req.body.user_id;
   console.log("User journal text:", userText);
-  exec(`python predict.py "${userText}"`, (error, stdout, stderr) => {
+exec(`python3 predict.py "${userText.replace(/"/g, '\\"')}"`, (error, stdout, stderr) => {
     if (error) {
       console.error("Error running Python script:", error);
-      return res
-        .status(500)
-        .json({ error: "Failed to process mood prediction" });
+      return res.status(500).json({ error: "Failed to process mood prediction" });
     }
+
     console.log("Python stdout:", stdout);
+
     try {
-      const result = JSON.parse(stdout);
+      const result = JSON.parse(stdout.trim()); // <-- small fix: .trim()
+      
       if (result.error) {
         console.error("Python script error:", result.error);
         return res.status(500).json({ error: "Error predicting emotion" });
       }
+
       const predictedEmotion = result.predicted_emotion;
       console.log("Predicted emotion:", predictedEmotion);
+
       const query = `INSERT INTO moods (user_id, journal_text, predicted_emotion) VALUES (?, ?, ?)`;
-      db.query(
-        query,
-        [userId, userText, predictedEmotion],
-        (dbError, dbResults) => {
-          if (dbError) {
-            console.error("Error saving to database:", dbError);
-            return res.status(500).json({ error: "Database error" });
-          }
-          console.log("Saved to database:", dbResults);
-          return res.status(200).json({
-            success: true,
-            emotion: predictedEmotion,
-            id: dbResults.insertId,
-          });
+      db.query(query, [userId, userText, predictedEmotion], (dbError, dbResults) => {
+        if (dbError) {
+          console.error("Error saving to database:", dbError);
+          return res.status(500).json({ error: "Database error" });
         }
-      );
+        console.log("Saved to database:", dbResults);
+        return res.status(200).json({
+          success: true,
+          emotion: predictedEmotion,
+          id: dbResults.insertId,
+        });
+      });
     } catch (parseError) {
-      console.error("Failed to parse Python response:", parseError);
-      return res.status(500).json({ error: "Failed to parse response" });
+      console.error("Failed to parse Python output:", parseError);
+      return res.status(500).json({ error: "Invalid prediction output" });
     }
-  });
+});
+
 });
 app.get("/mood-history/:userId", (req, res) => {
   const userId = req.params.userId;

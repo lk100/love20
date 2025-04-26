@@ -2,6 +2,7 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification
 import torch
 import sys
 import json
+import os 
 
 # Check if the argument is passed
 if len(sys.argv) < 2:
@@ -9,9 +10,13 @@ if len(sys.argv) < 2:
     sys.exit(1)
 
 # Load the saved model and tokenizer
-model_path = "./love_model"
+# Load the saved model and tokenizer
+current_dir = os.path.dirname(os.path.abspath(__file__))
+model_path = os.path.join(current_dir, "love_model")
+
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 model = AutoModelForSequenceClassification.from_pretrained(model_path)
+
 
 # Get the user's input text
 user_input_text = sys.argv[1]

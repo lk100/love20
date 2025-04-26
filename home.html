@@ -267,7 +267,7 @@
                 window.location.href = 'userlogin.html'; // Redirect to login page if no token found
             } else {
                 // Optionally, you can verify the token with the backend for validity
-                fetch('http://localhost:5000/verify-token', {
+                fetch('https://mindliss.up.railway.app/verify-token', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -315,7 +315,7 @@
             // Function to fetch the latest emotion from the backend
             async function fetchUserEmotion(userId) {
                 try {
-                    const response = await fetch(`http://localhost:5000/get-latest-emotion?user_id=${userId}`);
+                    const response = await fetch(`https://mindliss.up.railway.app/get-latest-emotion?user_id=${userId}`);
                     const data = await response.json();
                     return data.emotion; // Assuming the backend returns { "emotion": "happy" }
                 } catch (error) {
@@ -327,7 +327,7 @@
             // Function to fetch the most frequent emotion from the backend
             async function fetchMostFrequentEmotion(userId) {
                 try {
-                    const response = await fetch(`http://localhost:5000/get-latest-emotion?user_id=${userId}`);
+                    const response = await fetch(`https://mindliss.up.railway.app/get-latest-emotion?user_id=${userId}`);
                     const data = await response.json();
                     return data.emotion; // Assuming the backend returns { "emotion": "anxious" }
                 } catch (error) {
@@ -430,7 +430,7 @@
             }
         }); document.getElementById("logoutBtn").addEventListener("click", () => {
       
-            fetch("http://localhost:5000/logout", {
+            fetch("https://mindliss.up.railway.app/logout", {
                 method: "POST",
                 headers: { "Authorization": "Bearer " + localStorage.getItem("token") }
             })
