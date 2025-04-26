@@ -8,7 +8,8 @@ import { exec } from "child_process";
 import jwt from "jsonwebtoken";
 import { fileURLToPath } from "url";
 import expressSession from "express-session";
-import axios from 'axios';
+const axios = require('axios');
+
 
 
 dotenv.config();
