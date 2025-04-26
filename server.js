@@ -36,19 +36,18 @@ const GEMINI_API_URL =
 
 // MySQL connection
 const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "123456",
-  database: "homepage",
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
 });
 
 db.connect((err) => {
-  if (err) {
-    console.error("Failed to connect to MySQL", err);
-    return;
-  }
-  console.log("Connected to MySQL");
-});
+     if (err) {
+        console.error('Failed to connect to database:', err);
+    } else {
+        console.log('Connected to MySQL database');
+    });
 
 // Create user_answers table if not exists
 db.query(
