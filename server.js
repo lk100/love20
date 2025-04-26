@@ -351,7 +351,7 @@ app.post("/submit-journal", async (req, res) => {
   }
 });
 
-});
+
 app.get("/mood-history/:userId", (req, res) => {
   const userId = req.params.userId;
   const graphType = req.query.type || "date-emotion";
