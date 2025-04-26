@@ -316,7 +316,7 @@ app.get("/get-scores", (req, res) => {
   });
 });
 
-const axios = require('axios');
+
 
 app.post("/submit-journal", async (req, res) => {
   const userText = req.body.text;
