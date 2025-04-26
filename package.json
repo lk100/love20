@@ -30,8 +30,7 @@
     "mysql2": "^3.12.0",
     "node-fetch": "^2.7.0",
     "python-shell": "^5.0.0",
-    "sequelize": "^6.37.5",
-    "axios": "^0.21.1"
+    "sequelize": "^6.37.5"
     
   }
 }
