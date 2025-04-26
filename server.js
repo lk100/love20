@@ -324,7 +324,7 @@ app.post("/submit-journal", async (req, res) => {
   console.log("User journal text:", userText);
 
   try {
-    const response = await axios.post('https://your-flask-app-url.onrailway.app/predict', {
+    const response = await axios.post('https://flask-production-e35a.up.railway.app/', {
       text: userText
     });
 
