@@ -43,11 +43,13 @@ const db = mysql.createConnection({
 });
 
 db.connect((err) => {
-     if (err) {
+    if (err) {
         console.error('Failed to connect to database:', err);
     } else {
         console.log('Connected to MySQL database');
-    });
+    }
+});
+
 
 // Create user_answers table if not exists
 db.query(
