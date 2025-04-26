@@ -4,7 +4,7 @@ function loginUser(userId) {
   console.log("User ID set in localStorage:", localStorage.getItem("userId"));
 
   // Force a page reload (optional)
-  location.reload(); // Refreshes the page to ensure data is correctly loaded
+   // Refreshes the page to ensure data is correctly loaded
 
   // Or trigger the fetchMoodHistory() function directly
   fetchMoodHistory();
