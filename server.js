@@ -318,7 +318,7 @@ app.post("/submit-journal", (req, res) => {
   const userText = req.body.text;
   const userId = req.body.user_id;
   console.log("User journal text:", userText);
-exec(`python3 predict.py "${userText.replace(/"/g, '\\"')}"`, (error, stdout, stderr) => {
+exec(`python predict.py "${userText.replace(/"/g, '\\"')}"`, (error, stdout, stderr) => {
     if (error) {
       console.error("Error running Python script:", error);
       return res.status(500).json({ error: "Failed to process mood prediction" });
