@@ -52,7 +52,7 @@ function createMessageElement(message, sender, isHTML = false) {
 // Function to communicate with the backend
 async function getAIResponse(userMessage) {
   try {
-    const response = await fetch("http://localhost:5000/chat", {
+    const response = await fetch("https://mindliss.up.railway.app/chat", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
