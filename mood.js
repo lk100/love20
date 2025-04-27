@@ -34,7 +34,7 @@ async function submitMood() {
   }
 
   try {
-    const response = await fetch("https://mindliss.up.railway.app/submit-journal", {
+    const response = await fetch("https://mindbliss.up.railway.app/submit-journal", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -257,7 +257,7 @@ async function fetchMoodHistory(graphType = "date-emotion") {
   try {
     const userId = getUserId();
     const response = await fetch(
-      `https://mindliss.up.railway.app/mood-history/${userId}?type=${graphType}`
+      `https://mindbliss.up.railway.app/mood-history/${userId}?type=${graphType}`
     );
 
     if (!response.ok) {
@@ -338,7 +338,7 @@ async function fetchJournalEntries() {
 
   try {
     const response = await fetch(
-      `https://mindliss.up.railway.app/get-journal/${userId}?limit=${limit}&offset=${offset}`
+      `https://mindbliss.up.railway.app/get-journal/${userId}?limit=${limit}&offset=${offset}`
     );
     const data = await response.json();
     console.log("Fetched data:", data); // Debugging log
