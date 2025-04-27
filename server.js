@@ -316,45 +316,40 @@ app.get("/get-scores", (req, res) => {
   });
 });
 
-
 app.post("/submit-journal", async (req, res) => {
   const userText = req.body.text;
   const userId = req.body.user_id;
-  console.log("User journal text:", userText);
 
+  if (!userText || !userId) {
+    return res.status(400).json({ error: "Missing text or user_id" });
+  }
+
+  console.log("User journal text:", userText);
   try {
-    // Make a POST request to the Flask API
     const response = await axios.post('https://flask-production-e903.up.railway.app/predict', {
       text: userText,
       user_id: userId
     });
 
-    // Get the predicted emotion from the response
     console.log("Flask API response:", response.data);
     const predictedEmotion = response.data.emotion;
 
-    console.log("Predicted emotion:", predictedEmotion);
-
     // Save to the database
     const query = `INSERT INTO moods (user_id, journal_text, predicted_emotion) VALUES (?, ?, ?)`;
-    db.query(
-      query,
-      [userId, userText, predictedEmotion],
-      (dbError, dbResults) => {
-        if (dbError) {
-          console.error("Error saving to database:", dbError);
-          return res.status(500).json({ error: "Database error" });
-        }
-        console.log("Saved to database:", dbResults);
-        return res.status(200).json({
-          success: true,
-          emotion: predictedEmotion,
-          id: dbResults.insertId,
-        });
+    db.query(query, [userId, userText, predictedEmotion], (dbError, dbResults) => {
+      if (dbError) {
+        console.error("Error saving to database:", dbError);
+        return res.status(500).json({ error: "Database error" });
       }
-    );
+      console.log("Saved to database:", dbResults);
+      return res.status(200).json({
+        success: true,
+        emotion: predictedEmotion,
+        id: dbResults.insertId,
+      });
+    });
   } catch (error) {
-    console.error("Error calling Flask API:", error);
+    console.error("Error calling Flask API:", error);  // Log error for better clarity
     return res.status(500).json({ error: "Failed to process mood prediction" });
   }
 });
