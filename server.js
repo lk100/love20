@@ -324,12 +324,13 @@ app.post("/submit-journal", async (req, res) => {
 
   try {
     // Make a POST request to the Flask API
-    const response = await axios.post('https://flask-production-e903.up.railway.app/submit-journal', {
+    const response = await axios.post('https://flask-production-e903.up.railway.app/predict', {
       text: userText,
       user_id: userId
     });
 
     // Get the predicted emotion from the response
+    console.log("Flask API response:", response.data);
     const predictedEmotion = response.data.predicted_emotion;
     console.log("Predicted emotion:", predictedEmotion);
 
