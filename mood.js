@@ -25,7 +25,6 @@ function closeMoodModal() {
 async function submitMood() {
   const userText = document.getElementById("user-mood-input").value;
 
-  // Retrieve the logged-in user's ID from localStorage
   const userId = localStorage.getItem("userId");
 
   if (!userId) {
@@ -42,8 +41,11 @@ async function submitMood() {
       body: JSON.stringify({ text: userText, user_id: userId }),
     });
 
-    if (!response.ok)
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Error response from backend:", errorText);  // Log the full error response
       throw new Error(`Server responded with status: ${response.status}`);
+    }
 
     const result = await response.json();
     if (result.success) {
