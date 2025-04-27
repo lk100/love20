@@ -324,7 +324,7 @@ app.post("/submit-journal", async (req, res) => {
 
   try {
     // Make a POST request to the Flask API
-    const response = await axios.post('https://flask-production-4212.up.railway.app/predict', {
+    const response = await axios.post('https://flask-production-4212.up.railway.app/submit-journal', {
       text: userText
     });
 
