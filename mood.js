@@ -39,6 +39,7 @@ async function submitMood() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ text: userText, user_id: userId }),
+      console.log(text: userText, user_id: userId);
     });
 
     if (!response.ok) {
