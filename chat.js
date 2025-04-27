@@ -40,7 +40,7 @@ async function fetchChatHistory() {
   try {
     const userId = getUserId();
     const response = await fetch(
-      `http://localhost:5000/chat-history/${userId}`
+      `https://mindbliss.up.railway.app/chat-history/${userId}`
     );
 
     if (!response.ok) {
@@ -66,7 +66,7 @@ async function fetchRecommendedUsers(type) {
 
   try {
     const response = await fetch(
-      `http://localhost:5000/recommend-users/${userId}`
+      `https://mindbliss.up.railway.app/recommend-users/${userId}`
     );
     if (!response.ok) throw new Error("Failed to fetch recommended users");
 
@@ -135,7 +135,7 @@ async function sendFriendRequest(receiverId) {
       return;
     }
 
-    const response = await fetch("http://localhost:5000/send-friend-request", {
+    const response = await fetch("https://mindbliss.up.railway.app/send-friend-request", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -159,7 +159,7 @@ async function sendFriendRequest(receiverId) {
 async function fetchFriends() {
   try {
     const userId = getUserId();
-    const response = await fetch(`http://localhost:5000/get-friends/${userId}`);
+    const response = await fetch(`https://mindbliss.up.railway.app/get-friends/${userId}`);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch friends: ${response.status}`);
@@ -222,7 +222,7 @@ async function fetchChatMessages(receiverId) {
 
   try {
     const response = await fetch(
-      `http://localhost:5000/get-messages/${senderId}/${receiverId}`
+      `https://mindbliss.up.railway.app/get-messages/${senderId}/${receiverId}`
     );
     if (!response.ok) throw new Error("Failed to load chat.");
 
@@ -300,7 +300,7 @@ async function sendMessage() {
   }
 
   try {
-    const response = await fetch("http://localhost:5000/send-message", {
+    const response = await fetch("https://mindbliss.up.railway.app/send-message", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
