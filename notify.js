@@ -68,7 +68,7 @@ function renderFriendRequests(requests) {
 async function acceptFriendRequest(requestId) {
   try {
     const response = await fetch(
-      "http://localhost:5000/accept-friend-request",
+      "http://mindbliss.up.railway.app/accept-friend-request",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -90,7 +90,7 @@ async function acceptFriendRequest(requestId) {
 }
 
 function rejectFriendRequest(requestId) {
-  fetch("http://localhost:5000/reject-friend-request", {
+  fetch("http://mindbliss.up.railway.app/reject-friend-request", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ requestId }),
