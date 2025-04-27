@@ -331,7 +331,8 @@ app.post("/submit-journal", async (req, res) => {
 
     // Get the predicted emotion from the response
     console.log("Flask API response:", response.data);
-    const predictedEmotion = response.data.predicted_emotion;
+    const predictedEmotion = response.data.emotion;
+
     console.log("Predicted emotion:", predictedEmotion);
 
     // Save to the database
