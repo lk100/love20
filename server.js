@@ -325,7 +325,8 @@ app.post("/submit-journal", async (req, res) => {
   try {
     // Make a POST request to the Flask API
     const response = await axios.post('https://flask-production-e903.up.railway.app/submit-journal', {
-      text: userText
+      text: userText,
+      user_id: userId
     });
 
     // Get the predicted emotion from the response
