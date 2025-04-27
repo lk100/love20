@@ -317,49 +317,45 @@ app.get("/get-scores", (req, res) => {
 });
 
 
-app.post("/submit-journal", (req, res) => {
+app.post("/submit-journal", async (req, res) => {
   const userText = req.body.text;
   const userId = req.body.user_id;
   console.log("User journal text:", userText);
-  exec(`python predict.py "${userText}"`, (error, stdout, stderr) => {
-    if (error) {
-      console.error("Error running Python script:", error);
-      return res
-        .status(500)
-        .json({ error: "Failed to process mood prediction" });
-    }
-    console.log("Python stdout:", stdout);
-    try {
-      const result = JSON.parse(stdout);
-      if (result.error) {
-        console.error("Python script error:", result.error);
-        return res.status(500).json({ error: "Error predicting emotion" });
-      }
-      const predictedEmotion = result.predicted_emotion;
-      console.log("Predicted emotion:", predictedEmotion);
-      const query = `INSERT INTO moods (user_id, journal_text, predicted_emotion) VALUES (?, ?, ?)`;
-      db.query(
-        query,
-        [userId, userText, predictedEmotion],
-        (dbError, dbResults) => {
-          if (dbError) {
-            console.error("Error saving to database:", dbError);
-            return res.status(500).json({ error: "Database error" });
-          }
-          console.log("Saved to database:", dbResults);
-          return res.status(200).json({
-            success: true,
-            emotion: predictedEmotion,
-            id: dbResults.insertId,
-          });
+
+  try {
+    // Make a POST request to the Flask API
+    const response = await axios.post('https://flask-production-4212.up.railway.app/predict', {
+      text: userText
+    });
+
+    // Get the predicted emotion from the response
+    const predictedEmotion = response.data.predicted_emotion;
+    console.log("Predicted emotion:", predictedEmotion);
+
+    // Save to the database
+    const query = `INSERT INTO moods (user_id, journal_text, predicted_emotion) VALUES (?, ?, ?)`;
+    db.query(
+      query,
+      [userId, userText, predictedEmotion],
+      (dbError, dbResults) => {
+        if (dbError) {
+          console.error("Error saving to database:", dbError);
+          return res.status(500).json({ error: "Database error" });
         }
-      );
-    } catch (parseError) {
-      console.error("Failed to parse Python response:", parseError);
-      return res.status(500).json({ error: "Failed to parse response" });
-    }
-  });
+        console.log("Saved to database:", dbResults);
+        return res.status(200).json({
+          success: true,
+          emotion: predictedEmotion,
+          id: dbResults.insertId,
+        });
+      }
+    );
+  } catch (error) {
+    console.error("Error calling Flask API:", error);
+    return res.status(500).json({ error: "Failed to process mood prediction" });
+  }
 });
+
 app.get("/mood-history/:userId", (req, res) => {
   const userId = req.params.userId;
   const graphType = req.query.type || "date-emotion";
