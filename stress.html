@@ -1022,7 +1022,7 @@
             console.log('Saving answer:', questionNumber, answer); // Log the question number and answer
             const token = localStorage.getItem('token'); // Assuming JWT is stored in localStorage
 
-            fetch('http://localhost:5000/save-answer', {
+            fetch('https://mindbliss.up.railway.app/save-answer', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -1068,7 +1068,7 @@
                     answers[`q${i}`] = selectedOption.value;
                 }
             }
-            fetch('http://localhost:5000/submit-quiz', {
+            fetch('https://mindbliss.up.railway.app/submit-quiz', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -1098,7 +1098,7 @@
         function fetchDataAndUpdateChart() {
             const token = localStorage.getItem('token');
 
-            fetch('http://localhost:5000/get-scores', {
+            fetch('https://mindbliss.up.railway.app/get-scores', {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -1173,7 +1173,7 @@
             if (!token) {
                 window.location.href = 'userlogin.html';
             } else {
-                fetch('http://localhost:5000/verify-token', {
+                fetch('https://mindbliss.up.railway.app/verify-token', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -1204,7 +1204,7 @@
                 window.location.href = 'userlogin.html'; // Redirect to login page if no token found
             } else {
                 // Optionally, you can verify the token with the backend for validity
-                fetch('http://localhost:5000/verify-token', {
+                fetch('https://mindbliss.up.railway.app/verify-token', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
