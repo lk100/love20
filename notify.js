@@ -29,7 +29,7 @@ async function fetchReceivedFriendRequests() {
   try {
     const userId = getUserId(); // Get logged-in user ID
     const response = await fetch(
-      `http://localhost:5000/received-friend-requests/${userId}`
+      `https://mindbliss.up.railway.app/received-friend-requests/${userId}`
     );
 
     if (!response.ok) {
