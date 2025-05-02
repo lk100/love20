@@ -68,7 +68,7 @@ function renderFriendRequests(requests) {
 async function acceptFriendRequest(requestId) {
   try {
     const response = await fetch(
-      "http://mindbliss.up.railway.app/accept-friend-request",
+      "https://mindbliss.up.railway.app/accept-friend-request",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
