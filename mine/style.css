@@ -1,0 +1,127 @@
+        /* ---------- Base Styles for OnePlus Nord 4 ---------- */
+        body {
+            margin: 0;
+            font-family: "Poppins", sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: radial-gradient(circle at top left, #ffe1f2, #fff8fa, #e3f6ff);
+        }
+
+        .wrapper {
+            width: 90%;
+            max-width: 420px;
+            perspective: 1200px;
+            text-align: center;
+        }
+
+        .title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #ff4d6d;
+        }
+
+        .cards-container {
+            position: relative;
+            width: 100%;
+            height: 76vh;
+            /* same as before */
+            overflow: hidden;
+            /* prevent cards from extending outside */
+        }
+
+        .card {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 0 40px rgba(255, 182, 193, 0.5);
+            background: #fff;
+            transform: translateX(0) rotateY(0) scale(1);
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s ease-out;
+        }
+
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* covers card area */
+            display: block;
+        }
+
+        .glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), rgba(255, 182, 193, 0.15));
+            mix-blend-mode: screen;
+        }
+
+        .reason {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 12px 14px;
+            color: #fff;
+            font-size: 13px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.986), transparent);
+            border-bottom-left-radius: 24px;
+            border-bottom-right-radius: 24px;
+            box-sizing: border-box;
+        }
+
+        .counter {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #888;
+        }
+
+
+        .hidden {
+            display: none !important;
+        }
+
+        .intro-screen {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle at top left, #ffe1f2, #fff8fa, #e3f6ff);
+            text-align: center;
+            border-radius: 28px;
+            box-shadow: 0 15px 35px rgba(255, 77, 109, 0.3);
+        }
+
+        .intro-screen h1 {
+            color: #ff4d6d;
+            font-size: .9rem;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(255, 77, 109, 0.4);
+        }
+
+        .intro-screen p {
+            color: #ff8fab;
+            font-size: 1.1rem;
+        }
+
+ 
+        .closing-screen h1 {
+            font-size: 20px;
+            
+        }
+
+        .closing-screen p {
+            font-size: 13px;
+            
+        }
